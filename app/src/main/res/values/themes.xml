@@ -14,11 +14,13 @@
         <!-- Customize your theme here. -->
         <item name="android:windowActivityTransitions">true</item>
     </style>
+
     <style name="Theme.Tinkofftravelapp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.Tinkofftravelapp.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Tinkofftravelapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="Theme.Tinkofftravelapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

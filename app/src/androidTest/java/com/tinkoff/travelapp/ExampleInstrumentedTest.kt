@@ -1,4 +1,4 @@
-package com.example.tinkoff_travel_app
+package com.tinkoff.travelapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.example.tinkoff_travel_app
+package com.tinkoff.travelapp
 
 import org.junit.Test
 

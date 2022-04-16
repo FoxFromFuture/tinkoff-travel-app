@@ -38,8 +38,8 @@
     <ProgressBar
         android:id="@+id/entrance_loading"
         style="?android:attr/progressBarStyle"
-        android:layout_width="30dp"
-        android:layout_height="27dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:indeterminateTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/entrance_name"
         app:layout_constraintEnd_toEndOf="parent"

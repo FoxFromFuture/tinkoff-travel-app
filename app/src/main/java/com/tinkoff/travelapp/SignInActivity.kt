@@ -1,4 +1,4 @@
-package com.example.tinkoff_travel_app
+package com.tinkoff.travelapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -21,10 +21,15 @@ class SignInActivity : AppCompatActivity() {
 
         }
 
-        val buttonNotRegisteredYet = findViewById<TextView>(R.id.sign_in_not_registered_yet_text_button)
+        val buttonNotRegisteredYet =
+            findViewById<TextView>(R.id.sign_in_not_registered_yet_text_button)
         buttonNotRegisteredYet.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

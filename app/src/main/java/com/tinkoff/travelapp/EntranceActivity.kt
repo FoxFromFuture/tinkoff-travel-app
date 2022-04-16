@@ -1,4 +1,4 @@
-package com.example.tinkoff_travel_app
+package com.tinkoff.travelapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

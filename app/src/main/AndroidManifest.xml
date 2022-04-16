@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tinkoff_travel_app">
+    package="com.tinkoff.travelapp">
 
     <application
         android:allowBackup="true"
@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tinkofftravelapp">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
@@ -17,9 +20,6 @@
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignInActivity"
             android:exported="false" />
         <activity
             android:name=".EntranceActivity"
