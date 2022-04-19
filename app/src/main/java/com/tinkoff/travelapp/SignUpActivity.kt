@@ -2,24 +2,35 @@ package com.tinkoff.travelapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
         val buttonBack = findViewById<ImageButton>(R.id.sign_up_back_button)
-        buttonBack.setOnClickListener {
-            onBackPressed()
-        }
+        buttonBack.setOnClickListener(this)
 
         val buttonSignIn = findViewById<Button>(R.id.sign_up_sign_up_button)
-        buttonSignIn.setOnClickListener {
-            val intent = Intent(this, afterSignUpActivity::class.java)
-            startActivity(intent)
+        buttonSignIn.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.sign_up_back_button -> {
+                    onBackPressed()
+                }
+                R.id.sign_up_sign_up_button -> {
+                    val intent = Intent(this, AfterSignUpActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                }
+            }
         }
     }
 }
