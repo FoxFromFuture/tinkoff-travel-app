@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SignInActivity">
 
+    <!--
+        1. Вместо использования layout_marginStart="30dp" для каждой отдельно взятой вьюхи
+        можно использовать android:padding="30dp" внутри родительского контейнера (ConstraintLayout)
+        2. Та же тема со шрифтами. Лучше вынести дублирующийся набор атрибутов в отдельный
+        стиль TextAppearance.
+    -->
     <TextView
         android:id="@+id/sign_in_welcome"
         android:layout_width="wrap_content"
@@ -20,6 +26,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
+        1. fill_parent -> match_parent
+        2. Тут имеет смысл выставить autofillHints в email:
+        https://developer.android.com/reference/android/view/View.html#AUTOFILL_HINT_CREDIT_CARD_EXPIRATION_DATE
+        3. layout_constraintHorizontal_bias лишний, т.к. не привносит никаких изменений
+        в разметку.
+    -->
     <EditText
         android:id="@+id/sign_in_email_input"
         android:layout_width="fill_parent"

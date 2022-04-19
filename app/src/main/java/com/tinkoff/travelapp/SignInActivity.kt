@@ -11,6 +11,10 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
+        /*
+            TODO : Попробуйте в этом файле реализовать один OnClickListener для всех вьюх
+            чисто ради получения опыта.
+        */
         val buttonSignIn = findViewById<Button>(R.id.sign_in_sign_in_button)
         buttonSignIn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

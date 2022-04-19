@@ -7,6 +7,13 @@
     android:background="@color/yellow_700"
     tools:context=".EntranceActivity">
 
+    <!--
+        1. fill_parent устаревшее значение для более ранних версий Android
+           в данном случае надо использовать match_parent.
+        2. Повторяющиеся атрибуты типа textColor, textSize, textAlignment
+           лучше выносить в отдельный стиль TextAppearance, если он используется
+           несколько раз.
+    -->
     <TextView
         android:id="@+id/entrance_name"
         android:layout_width="fill_parent"
@@ -19,9 +26,18 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!--
+        1. Почему такой странный layout_constraintHorizontal_bias? :)
+        Почему бы просто не поставить 0.5, что означает ровно половину.
+        А так, получается небольшой сдвиг влево.
+        2. Т.к. у вас minSdk в build.gradle выставлен в 23, то можно вместо
+        srcCompat использовать напрямую android:src, т.к. srcCompat нужен для
+        поддержки загрузки векторных изображения до SDK 21 (Lollipop). Это не
+        ошибка, но может в голове возникать путаница.
+        Подроднее можно почитать вот тут: https://android-developers.googleblog.com/2016/02/android-support-library-232.html
+    -->
     <ImageView
         android:id="@+id/entrance_logo"
         android:layout_width="wrap_content"
@@ -43,7 +59,7 @@
         android:indeterminateTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/entrance_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrance_logo"
         app:layout_constraintVertical_bias="0.65" />

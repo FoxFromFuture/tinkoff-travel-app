@@ -10,6 +10,8 @@ class EntranceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entrance)
 
+        // Тут тоже студия вам говорит, что используется какой-то код, который
+        // помечен как устаревший. Стоит использовать Handler(Looper.getMainLooper())
         Handler().postDelayed(
             {
                 val intent = Intent(this, SignInActivity::class.java)

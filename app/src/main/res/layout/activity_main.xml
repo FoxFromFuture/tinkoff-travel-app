@@ -13,6 +13,11 @@
         android:layout_height="match_parent"
         android:backgroundTint="@color/gray">
 
+        <!--
+            1. android:background можно выставить @android:color/transparent.
+            В таком случае, можно будет удалить backgroundTint.
+            2. srcCompat можно заменить на android:src.
+        -->
         <ImageButton
             android:id="@+id/main_global_button"
             android:layout_width="24dp"
@@ -39,6 +44,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/main_global_button" />
 
+        <!--
+            Можете посмотреть в сторону Toolbar компонента, с помощью которого можно
+            объединить несколько вьюх, которые сейчас занимают много места
+            (title + menu button + search view).
+        -->
         <SearchView
             android:id="@+id/main_search_view"
             android:layout_width="fill_parent"

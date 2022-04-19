@@ -5,7 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".afterSignUpActivity">
-
+    <!--
+        1. Т.к. мы тут хотим кнопку на весь экран, с небольшими отступами от краев,
+        то можно решить это альтернативным способом. layout_width сделать match_parent
+        и добавить необходимые отступы.
+        2. Все необходимые параметры для этой кнопки лучше также вынести в отдельный стиль
+    -->
     <Button
         android:id="@+id/after_sign_up_lets_go"
         android:layout_width="301dp"
