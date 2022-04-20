@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity">
+    tools:context=".SignInActivity"
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/sign_in_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="90dp"
         android:fontFamily="@font/sfprodisplay_bold"
         android:text="@string/sign_in_login"
@@ -22,12 +22,10 @@
 
     <EditText
         android:id="@+id/sign_in_email_input"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="128dp"
-        android:layout_marginEnd="30dp"
-        android:autofillHints="no"
+        android:autofillHints="yes"
         android:backgroundTint="@color/blue_500"
         android:ems="10"
         android:fontFamily="@font/sfprodisplay_regular"
@@ -36,17 +34,14 @@
         android:textColorHint="@color/gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_welcome" />
 
     <EditText
         android:id="@+id/sign_in_password_input"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="30dp"
         android:autofillHints="no"
         android:backgroundTint="@color/blue_500"
         android:ems="10"
@@ -60,17 +55,12 @@
         app:layout_constraintTop_toBottomOf="@+id/sign_in_email_input" />
 
     <Button
+        style="@style/ButtonStyle"
         android:id="@+id/sign_in_sign_in_button"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="35dp"
-        android:background="@drawable/custom_button"
-        android:fontFamily="@font/sfprodisplay_regular"
-        android:letterSpacing="0"
         android:text="@string/sign_in"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
         android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_password_input" />
@@ -84,14 +74,12 @@
         android:textSize="19sp"
         app:layout_constraintBottom_toBottomOf="@+id/sign_in_sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sign_in_sign_in_button"
         app:layout_constraintTop_toTopOf="@+id/sign_in_sign_in_button" />
 
     <TextView
         android:id="@+id/sign_in_not_registered_yet_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="32dp"
         android:text="@string/not_registered_yet"
         android:textColor="@color/blue_500"

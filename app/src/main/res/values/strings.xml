@@ -19,4 +19,15 @@
     <string name="after_sign_up_hello">Hello!</string>
     <string name="after_sign_up_paste">You\'ve just registered in our travel app.\nWe glad to see you and hope your future journeys will begin as soon as possible.\nStay tuned!</string>
     <string name="after_sign_up_lets_go">Let\'s go</string>
+
+    <!--    Main-->
+    <string name="main_my_travels">My travels</string>
+    <string name="main_search">Search</string>
+    <!-- Side menu-->
+    <string name="main_menu_my_account">My account</string>
+    <string name="main_menu_settings">Settings</string>
+    <string name="main_menu_support">Support</string>
+    <string name="main_menu_FAQ">FAQ</string>
+    <string name="main_menu_about_us">About us</string>
+    <string name="main_menu_logout">Logout</string>
 </resources>

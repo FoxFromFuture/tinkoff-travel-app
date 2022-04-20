@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    Legacy-->
-<!--    <color name="purple_200">#FFBB86FC</color>-->
-<!--    <color name="purple_500">#FF6200EE</color>-->
-<!--    <color name="purple_700">#FF3700B3</color>-->
-<!--    <color name="teal_200">#FF03DAC5</color>-->
-<!--    <color name="teal_700">#FF018786</color>-->
+    <!--    Legacy-->
+    <!--    <color name="purple_200">#FFBB86FC</color>-->
+    <!--    <color name="purple_500">#FF6200EE</color>-->
+    <!--    <color name="purple_700">#FF3700B3</color>-->
+    <!--    <color name="teal_200">#FF03DAC5</color>-->
+    <!--    <color name="teal_700">#FF018786</color>-->
 
     <!--    First-->
     <color name="yellow_600">#FFFFDC2D</color> <!--    Main-->
-<!--    <color name="yellow_700">#FFFEC424</color> &lt;!&ndash;    Secondary&ndash;&gt;-->
     <color name="yellow_200">#FFFFFF66</color> <!--    Additional-->
     <color name="yellow_700">#FFFFE33A</color>
     <!--    Second-->
-    <color name="blue_500">#FF3584F2</color> <!--    idk-->
+    <color name="blue_500">#FF3584F2</color>
     <color name="blue_200">#FF566DFF</color>
-    
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FF9A9A9A</color>
