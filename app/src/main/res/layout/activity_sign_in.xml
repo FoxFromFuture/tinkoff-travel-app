@@ -24,7 +24,7 @@
         android:id="@+id/sign_in_email_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="67dp"
         android:autofillHints="yes"
         android:backgroundTint="@color/blue_500"
         android:ems="10"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
         android:textColor="@color/blue_500"
-        android:textSize="19sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/sign_in_sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/sign_in_sign_in_button" />
@@ -83,8 +83,9 @@
         android:layout_marginTop="32dp"
         android:text="@string/not_registered_yet"
         android:textColor="@color/blue_500"
-        android:textSize="19sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/sign_in_sign_in_button"
+        app:layout_constraintStart_toStartOf="@+id/sign_in_sign_in_button"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_sign_in_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
