@@ -2,6 +2,7 @@ package com.tinkoff.travelapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -15,6 +16,11 @@ class TripDescriptionActivity() : AppCompatActivity() {
         val itemDate: TextView = findViewById(R.id.trip_description_date)
         val itemKeyPoints: TextView = findViewById(R.id.trip_description_key_points)
         val itemTripDescription: TextView = findViewById(R.id.trip_description_text)
+
+        val backButton: ImageButton = findViewById(R.id.trip_description_button_back)
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
 
         itemImage.setImageResource(intent.getIntExtra("itemImage", 0))
         itemTitle.text = intent.getStringExtra("itemTitle")

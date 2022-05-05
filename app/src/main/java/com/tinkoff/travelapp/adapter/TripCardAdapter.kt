@@ -27,11 +27,11 @@ class TripCardAdapter(private var images: List<Int>, private var title: List<Str
         val itemKeyPoints: TextView = itemView.findViewById(R.id.trip_card_key_points)
 
         init {
-            itemImage.setOnClickListener { v: View ->
+            itemImage.setOnClickListener {
                 val position = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on Billy! He likes it!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
             }
-            itemTripCard.setOnClickListener { v: View ->
+            itemTripCard.setOnClickListener {
                 val position = adapterPosition
                 val intent = Intent(itemView.context, TripDescriptionActivity::class.java)
 
