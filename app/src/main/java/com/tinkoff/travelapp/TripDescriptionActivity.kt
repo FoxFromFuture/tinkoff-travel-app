@@ -22,6 +22,9 @@ class TripDescriptionActivity() : AppCompatActivity() {
             onBackPressed()
         }
 
+        // Строки типа "itemImage" лучше вынести в константы и использовать их в двух местах,
+        // чтобы не возникло ошибок в неправильном именовании параметров на отправляющей и
+        // принимающей стороне.
         itemImage.setImageResource(intent.getIntExtra("itemImage", 0))
         itemTitle.text = intent.getStringExtra("itemTitle")
         itemDate.text = intent.getStringExtra("itemDate")

@@ -28,11 +28,23 @@ class TripCardAdapter(private var images: List<Int>, private var title: List<Str
 
         init {
             itemImage.setOnClickListener {
+                // Лучше вынести в отдельный метод. Он будет небольшой, однострочный, но
+                // зато конструктор будет более чистым и понятным.
                 val position = adapterPosition
                 Toast.makeText(itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
             }
             itemTripCard.setOnClickListener {
+                // Это тоже лучше сделать отдельным методом.
                 val position = adapterPosition
+                /*
+                    Более того, можно воспользоваться удобной концепцией и вынести
+                    метод старта TripDescriptionActivity в сам класс. Вот таким образом:
+                    class Activity {
+                        companion object {
+                            fun start(context, args, options) { ... }
+                        }
+                    }
+                 */
                 val intent = Intent(itemView.context, TripDescriptionActivity::class.java)
 
                 val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(

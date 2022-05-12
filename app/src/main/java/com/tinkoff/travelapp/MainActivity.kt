@@ -24,6 +24,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         postToList()
+        /*
+            Попробуйте тут операрировать не отдельными списками элементов типа "список картинок",
+            "список заголовков" и т.д., а прям списком самостоятельных сущностей. Можно запилить
+            TripCard, в который поместить в качестве полей по одному значению из каждого списска ниже,
+            а затем передавать уже один список List<TripCard>, а не несколько разрозненных списков.
+            Тогда код станет чище и в этой Activity и внутри TripCardAdapter.
+         */
         adapter = TripCardAdapter(imagesList, titleList, dateList, keyPointsList, tripDescriptionList)
         trip_pager = findViewById(R.id.trip_pager)
         trip_pager.adapter = adapter
