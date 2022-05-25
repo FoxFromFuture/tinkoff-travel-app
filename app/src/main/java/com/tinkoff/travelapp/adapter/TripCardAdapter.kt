@@ -16,7 +16,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.TripDescriptionActivity
 
-class TripCardAdapter(private var images: List<Int>, private var title: List<String>, private var date: List<String>, private var key_points: List<String>, private var trip_description: List<String>) : RecyclerView.Adapter<TripCardAdapter.Pager2ViewHolder>() {
+class TripCardAdapter(
+    private var images: List<Int>,
+    private var title: List<String>,
+    private var date: List<String>,
+    private var key_points: List<String>,
+    private var trip_description: List<String>
+) : RecyclerView.Adapter<TripCardAdapter.Pager2ViewHolder>() {
 
     inner class Pager2ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -51,8 +57,13 @@ class TripCardAdapter(private var images: List<Int>, private var title: List<Str
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripCardAdapter.Pager2ViewHolder {
-        return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.page_trip_card, parent, false))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TripCardAdapter.Pager2ViewHolder {
+        return Pager2ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.main_page_trip_card, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {

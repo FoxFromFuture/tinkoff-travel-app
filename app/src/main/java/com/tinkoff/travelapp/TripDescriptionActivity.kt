@@ -1,10 +1,10 @@
 package com.tinkoff.travelapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class TripDescriptionActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

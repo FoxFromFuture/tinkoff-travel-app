@@ -24,20 +24,20 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                R.id.sign_in_sign_in_button -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    finishAffinity()
-                    startActivity(intent)
-                }
-                R.id.sign_in_forgot_password_text_button -> {
+        val context = this
 
-                }
-                R.id.sign_in_not_registered_yet_text_button -> {
-                    val intent = Intent(this, SignUpActivity::class.java)
-                    startActivity(intent)
-                }
+        when (view?.id) {
+            R.id.sign_in_sign_in_button -> {
+                val intent = Intent(context, MainActivity::class.java)
+                finishAffinity()
+                startActivity(intent)
+            }
+            R.id.sign_in_forgot_password_text_button -> {
+
+            }
+            R.id.sign_in_not_registered_yet_text_button -> {
+                val intent = Intent(context, SignUpActivity::class.java)
+                startActivity(intent)
             }
         }
     }

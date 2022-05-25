@@ -20,16 +20,14 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (view != null) {
-            when (view.id) {
-                R.id.sign_up_back_button -> {
-                    onBackPressed()
-                }
-                R.id.sign_up_sign_up_button -> {
-                    val intent = Intent(this, AfterSignUpActivity::class.java)
-                    startActivity(intent)
-                    finishAffinity()
-                }
+        when (view?.id) {
+            R.id.sign_up_back_button -> {
+                onBackPressed()
+            }
+            R.id.sign_up_sign_up_button -> {
+                val intent = Intent(this, AfterSignUpActivity::class.java)
+                startActivity(intent)
+                finishAffinity()
             }
         }
     }

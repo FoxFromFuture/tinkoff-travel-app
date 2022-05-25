@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/custom_button.xml" value="0.1035" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/custom_layout.xml" value="1.0" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/ic_fb_logo.xml" value="0.25" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/ic_google_logo.xml" value="0.2265" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2415" />
@@ -14,20 +15,24 @@
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_forum_24.xml" value="0.344" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_help_24.xml" value="0.344" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_help_outline_24.xml" value="0.344" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_image_not_supported_24.xml" value="0.3675" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_info_24.xml" value="0.344" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_menu_24.xml" value="0.196" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_public_24.xml" value="0.196" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/outline_settings_24.xml" value="0.344" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/drawable/test.xml" value="0.3665" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/font/roboto.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/font/roboto_bold.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/font/roboto_thin.xml" value="0.27239583333333334" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/font/sfprodisplay.xml" value="0.265625" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_about_us.xml" value="0.22" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_after_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_entrance.xml" value="0.33" />
-        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_main.xml" value="0.28370786516853935" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_main2.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_sign_in.xml" value="0.5" />
-        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_sign_up.xml" value="0.5" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_settings.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_sign_up.xml" value="0.33" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_test.xml" value="0.28177083333333336" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/activity_trip_description.xml" value="0.21458333333333332" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/content_sign_in.xml" value="0.2515625" />
@@ -36,8 +41,11 @@
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/fragment_first.xml" value="0.2515625" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/fragment_second.xml" value="0.2515625" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/main_create_travel_popup.xml" value="0.33" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/main_page_trip_card.xml" value="0.33" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/menu_navigation.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/page_trip_card.xml" value="0.21458333333333332" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/layout/page_trip_card.xml" value="0.5" />
+        <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/menu/activity_my_account.xml" value="0.21510416666666668" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/bool/Desktop/tinkoff-travel-app/app/src/main/res/menu/navigation_menu.xml" value="0.5" />
       </map>
