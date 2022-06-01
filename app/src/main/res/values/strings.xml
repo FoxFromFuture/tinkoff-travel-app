@@ -27,9 +27,7 @@
     <string name="main_menu_menu">Menu</string>
     <string name="main_menu_my_account">My account</string>
     <string name="main_menu_settings">Settings</string>
-    <string name="main_menu_support">Support</string>
     <string name="main_menu_FAQ">FAQ</string>
-    <string name="main_menu_about_us">About us</string>
     <string name="main_menu_logout">Logout</string>
     <!--    Trip card-->
     <string name="trip_description">Description</string>
@@ -39,8 +37,22 @@
     <string name="main_create_travel_popup_go">Go!</string>
     <string name="main_create_travel_popup_name">Name</string>
 
-    <!--    AboutUsActivity-->
-    <string name="about_us_version">ver. 1.0</string>
-    <string name="about_us_link_text">github</string>
-    <string name="about_us_link">github.com/FoxFromFuture/tinkoff-travel-app</string>
+    <!--    Map-->
+    <string name="map_permission_needed">Unable to access location due to lack of permission</string>
+
+    <!--    Settings-->
+    <string name="settings_settings">Settings</string>
+    <!--    Theme choosing-->
+    <string name="settings_theme_choosing_name">Theme</string>
+    <string name="settings_theme_choosing_desc">Choose app theme</string>
+    <string name="settings_theme_choosing_sync">Sync with system</string>
+    <string name="settings_theme_choosing_light">Light</string>
+    <string name="settings_theme_choosing_dark">Dark</string>
+    <!--    About-->
+    <string name="settings_about_label">About</string>
+    <string name="settings_about_summary">App version and credits</string>
+    <string name="settings_about_version_text">version %1$s</string>
+    <string name="settings_about_link_text">github</string>
+    <string name="settings_about_link">github.com/FoxFromFuture/tinkoff-travel-app</string>
+
 </resources>

@@ -9,7 +9,7 @@ import com.tinkoff.travelapp.model.street.Street
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class TripCardViewModel: ViewModel() {
+class TripCardViewModel : ViewModel() {
 
     var repository = Repository()
     val tripDataList: MutableLiveData<Response<Route>> = MutableLiveData()

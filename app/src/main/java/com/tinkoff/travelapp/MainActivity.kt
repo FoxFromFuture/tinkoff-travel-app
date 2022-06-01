@@ -1,9 +1,6 @@
 package com.tinkoff.travelapp
 
-import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,13 +11,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.tinkoff.travelapp.adapter.TripCardAdapter
-import com.tinkoff.travelapp.menu.AboutUsActivity
 import com.tinkoff.travelapp.menu.FAQActivity
 import com.tinkoff.travelapp.menu.MyAccountActivity
 import com.tinkoff.travelapp.menu.SettingsActivity
@@ -39,7 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         postToList()
-        val viewModel= ViewModelProvider(this)[TripCardViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
 
         viewModel.getStreet()
         viewModel.Street.observe(this, Observer { response ->
@@ -85,14 +82,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     val intent = Intent(this, FAQActivity::class.java)
                     startActivity(intent)
                 }
-                R.id.main_menu_about_us_button -> {
-                    val intent = Intent(this, AboutUsActivity::class.java)
-                    startActivity(intent)
-                }
-                R.id.main_menu_logout_button -> {
-                    val intent = Intent(this, AboutUsActivity::class.java)
-                    startActivity(intent)
-                }
             }
 
             drawer.closeDrawer(GravityCompat.START)
@@ -104,6 +93,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val buttonLogout = findViewById<Button>(R.id.main_menu_logout_button)
         buttonLogout.setOnClickListener(this)
+
+        val buttonMap = findViewById<ImageButton>(R.id.main_global_button)
+        buttonMap.setOnClickListener(this)
     }
 
     private fun addToList(
@@ -141,19 +133,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.main_add_travel_button -> {
-                val dialogBuilder = AlertDialog.Builder(this)
-                val dialogView =
-                    this.layoutInflater.inflate(R.layout.main_create_travel_popup, null)
-                dialogBuilder.setView(dialogView)
-
-                val alertDialog = dialogBuilder.create()
-                alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                alertDialog.show()
+                val fragmentManager = (view.context as FragmentActivity).supportFragmentManager
+                CreateTravelDialogFragment().show(
+                    fragmentManager, CreateTravelDialogFragment.TAG
+                )
             }
             R.id.main_menu_logout_button -> {
                 val intent = Intent(this, SignInActivity::class.java)
                 finishAffinity()
+                startActivity(intent)
+            }
+            R.id.main_global_button -> {
+                val intent = Intent(this, MapActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -29,10 +29,54 @@ class TripCardAdapter(
 
     var routeList = emptyList<RouteItem>()
     var street: Street = Street()
-    var testRouteItem_0: RouteItem = RouteItem(0, "tempStreet", "STREET", 56.313503, 44.008277, "temp street", "https://yandex.ru", "00:00", "23:59", 0)
-    var testRouteItem_1: RouteItem = RouteItem(1, "tempBar", "BAR", 76.313503, 24.008277, "temp bar", "https://yandex.ru", "16:00", "23:00", 2)
-    var testRouteItem_2: RouteItem = RouteItem(2, "tempCafe", "CAFE", 52.313503, 34.008277, "temp cafe", "https://yandex.ru", "08:00", "22:00", 3)
-    var testRouteItem_3: RouteItem = RouteItem(3, "tempMuseum", "MUSEUM", 69.313503, 48.008277, "temp museum", "https://yandex.ru", "08:00", "21:00", 1)
+    var testRouteItem_0: RouteItem = RouteItem(
+        0,
+        "tempStreet",
+        "STREET",
+        56.313503,
+        44.008277,
+        "temp street",
+        "https://yandex.ru",
+        "00:00",
+        "23:59",
+        0
+    )
+    var testRouteItem_1: RouteItem = RouteItem(
+        1,
+        "tempBar",
+        "BAR",
+        76.313503,
+        24.008277,
+        "temp bar",
+        "https://yandex.ru",
+        "16:00",
+        "23:00",
+        2
+    )
+    var testRouteItem_2: RouteItem = RouteItem(
+        2,
+        "tempCafe",
+        "CAFE",
+        52.313503,
+        34.008277,
+        "temp cafe",
+        "https://yandex.ru",
+        "08:00",
+        "22:00",
+        3
+    )
+    var testRouteItem_3: RouteItem = RouteItem(
+        3,
+        "tempMuseum",
+        "MUSEUM",
+        69.313503,
+        48.008277,
+        "temp museum",
+        "https://yandex.ru",
+        "08:00",
+        "21:00",
+        1
+    )
 
     inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -67,8 +111,13 @@ class TripCardAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripCardAdapter.TripCardViewHolder {
-        return TripCardViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.main_page_trip_card, parent, false))
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TripCardAdapter.TripCardViewHolder {
+        return TripCardViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.main_page_trip_card, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {

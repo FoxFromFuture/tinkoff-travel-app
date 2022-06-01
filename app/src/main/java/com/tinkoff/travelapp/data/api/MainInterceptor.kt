@@ -3,14 +3,14 @@ package com.tinkoff.travelapp.data.api
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class MainInterceptor: Interceptor {
+class MainInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
             .newBuilder()
-            .addHeader("Content-Type" , "application/json")
+            .addHeader("Content-Type", "application/json")
             .addHeader("Authorization", "Basic YWRtaW46YWRtaW4=")
             .build()
-        return  chain.proceed(request)
+        return chain.proceed(request)
     }
 
 

@@ -6,7 +6,6 @@ import com.tinkoff.travelapp.model.cafe.Cafe
 import com.tinkoff.travelapp.model.museum.Museum
 import com.tinkoff.travelapp.model.route.Route
 import com.tinkoff.travelapp.model.street.Street
-import retrofit2.Call
 import retrofit2.Response
 
 class Repository {

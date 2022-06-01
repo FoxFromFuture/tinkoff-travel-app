@@ -23,6 +23,7 @@
 
             <ImageButton
                 android:id="@+id/trip_description_button_back"
+                style="@style/IconStyle"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="30dp"
@@ -35,12 +36,12 @@
 
             <TextView
                 android:id="@+id/trip_description_title"
+                style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
                 android:fontFamily="@font/sfprodisplay_medium"
                 android:text="@string/main_my_travels"
-                android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +50,7 @@
 
             <ImageButton
                 android:id="@+id/trip_description_button_map"
+                style="@style/IconStyle"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="30dp"
@@ -56,7 +58,7 @@
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/outline_public_24"
+                app:srcCompat="@drawable/baseline_map_24"
                 tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,17 +85,18 @@
 
             <TextView
                 android:id="@+id/trip_description_key_points"
+                style="@style/TextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5sp"
                 android:layout_marginTop="5sp"
                 android:fontFamily="@font/sfprodisplay_light"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/trip_description_date"
+                style="@style/TextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5sp"
@@ -101,32 +104,34 @@
                 android:fontFamily="@font/sfprodisplay_light"
                 android:gravity="end"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/trip_description_description"
+            style="@style/TextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5sp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/sfprodisplay_medium"
             android:text="@string/trip_description"
-            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trip_description_linearLayout" />
 
         <ScrollView
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trip_description_description">
+            app:layout_constraintTop_toBottomOf="@+id/trip_description_description"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/trip_description_text"
@@ -136,7 +141,6 @@
                 android:layout_marginEnd="5sp"
                 android:fontFamily="@font/sfprodisplay_regular"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
                 android:textSize="18sp" />
 
         </ScrollView>
