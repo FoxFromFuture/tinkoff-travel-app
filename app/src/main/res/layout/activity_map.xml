@@ -63,6 +63,7 @@
 
     <ImageButton
         android:id="@+id/map_back_button"
+        style="@style/IconStyle"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="30dp"

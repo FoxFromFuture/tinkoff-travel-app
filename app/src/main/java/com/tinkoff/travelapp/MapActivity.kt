@@ -2,13 +2,16 @@ package com.tinkoff.travelapp
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
+import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
@@ -16,6 +19,8 @@ import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
+import com.yandex.mapkit.search.NearbyStop
+import com.yandex.mapkit.search.Stop
 
 class MapActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mapView: MapView
@@ -56,6 +61,26 @@ class MapActivity : AppCompatActivity(), View.OnClickListener {
 
         setContentView(R.layout.activity_map)
         mapView = findViewById(R.id.map_map)
+
+        when (PreferenceManager.getDefaultSharedPreferences(this)
+            .getString("settings_theme_choosing", "")) {
+            "SYNC" -> {
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        mapView.map.isNightModeEnabled = true
+                    }
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                        mapView.map.isNightModeEnabled = false
+                    }
+                }
+            }
+            "LIGHT" -> {
+                mapView.map.isNightModeEnabled = false
+            }
+            "DARK" -> {
+                mapView.map.isNightModeEnabled = true
+            }
+        }
 
         if (permissionsGranted) {
             fusedLocationClient.lastLocation

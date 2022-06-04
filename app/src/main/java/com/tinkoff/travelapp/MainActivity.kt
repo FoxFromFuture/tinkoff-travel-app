@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //        viewModel.tripDataList.observe(this) { list ->
 //            list.body()?.let { adapter.setListOfRoutes(it) }
 //        }
+
         val buttonMenu = findViewById<ImageButton>(R.id.main_menu_button)
         buttonMenu.setOnClickListener(this)
 
