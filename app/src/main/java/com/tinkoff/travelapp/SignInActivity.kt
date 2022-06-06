@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
@@ -33,7 +34,7 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.sign_in_forgot_password_text_button -> {
-
+                Toast.makeText(context, "I can't help you!", Toast.LENGTH_SHORT).show()
             }
             R.id.sign_in_not_registered_yet_text_button -> {
                 val intent = Intent(context, SignUpActivity::class.java)

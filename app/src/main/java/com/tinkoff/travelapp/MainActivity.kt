@@ -11,7 +11,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +23,8 @@ import com.tinkoff.travelapp.adapter.TripCardAdapter
 import com.tinkoff.travelapp.menu.FAQActivity
 import com.tinkoff.travelapp.menu.MyAccountActivity
 import com.tinkoff.travelapp.menu.SettingsActivity
+import com.tinkoff.travelapp.model.route.Route
+import com.tinkoff.travelapp.model.route.RouteItem
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var imagesList = mutableListOf<Int>()
@@ -35,31 +39,49 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        postToList()
-        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
+//        postToList()
+//        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
 
-        viewModel.getStreet()
-        viewModel.Street.observe(this, Observer { response ->
-            if (response.isSuccessful) {
-                Log.d("Main", response.body().toString())
-                Log.d("Main", response.code().toString())
-                Log.d("Main", response.headers().toString())
-            } else {
-                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
-            }
-        })
-        viewModel.Street.observe(this) { list ->
-            list.body()?.let { adapter.setNextStreet(it) }
-        }
+//        viewModel.getStreet()
+//        viewModel.Street.observe(this, Observer { response ->
+//            if (response.isSuccessful) {
+//                Log.d("Main", response.body().toString())
+//                Log.d("Main", response.code().toString())
+//                Log.d("Main", response.headers().toString())
+//            } else {
+//                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//        viewModel.Street.observe(this) { list ->
+//            list.body()?.let { adapter.setNextStreet(it) }
+//        }
 
-        adapter =
-            TripCardAdapter(imagesList, titleList, dateList, keyPointsList, tripDescriptionList)
-        tripPager = findViewById(R.id.main_trip_pager)
-        tripPager.adapter = adapter
 //        viewModel.getRoute()
 //        viewModel.tripDataList.observe(this) { list ->
-//            list.body()?.let { adapter.setListOfRoutes(it) }
+//            if (list.isSuccessful) {
+//                Log.d("Main", list.body().toString())
+//                list.body()?.let { adapter.setListOfRoutes(it) }
+//            } else {
+//                Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
+//            }
 //        }
+//        viewModel.tripDataList.observe(this, Observer { response ->
+//            if (response.isSuccessful) {
+//                Log.d("Main", response.body().toString())
+//                Log.d("Main", response.code().toString())
+//                Log.d("Main", response.headers().toString())
+//            } else {
+//                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+
+//        adapter =
+//            TripCardAdapter(imagesList, titleList, dateList, keyPointsList, tripDescriptionList)
+        adapter =
+            TripCardAdapter(imagesList, titleList, dateList)
+        tripPager = findViewById(R.id.main_trip_pager)
+        tripPager.adapter = adapter
+
 
         val buttonMenu = findViewById<ImageButton>(R.id.main_menu_button)
         buttonMenu.setOnClickListener(this)
@@ -99,29 +121,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonMap.setOnClickListener(this)
     }
 
-    private fun addToList(
-        image: Int,
-        title: String,
-        date: String,
-        key_points: String,
-        trip_description: String
-    ) {
-        imagesList.add(image)
+//    private fun addToList(
+//        image: Int,
+//        title: String,
+//        date: String,
+//        key_points: String,
+//        trip_description: String
+//    ) {
+//        imagesList.add(image)
+//        titleList.add(title)
+//        dateList.add(date)
+//        keyPointsList.add(key_points)
+//        tripDescriptionList.add(trip_description)
+//    }
+
+    private fun addToList(title: String, date: String) {
         titleList.add(title)
         dateList.add(date)
-        keyPointsList.add(key_points)
-        tripDescriptionList.add(trip_description)
     }
 
-    private fun postToList() {
-        addToList(
-            R.drawable.base_trip_card_image,
-            "Trip",
-            "04-29-2022",
-            "Moscow - City",
-            "Text\n\n\nText"
-        )
-    }
+//    private fun postToList() {
+//        addToList(
+//            R.drawable.base_trip_card_image,
+//            "Trip",
+//            "04-29-2022",
+//            "Moscow - City",
+//            "Text\n\n\nText"
+//        )
+//    }
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -147,6 +174,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.main_global_button -> {
                 val intent = Intent(this, MapActivity::class.java)
                 startActivity(intent)
+            }
+        }
+    }
+
+    fun dialogFragmentListener(
+        trip_name: String,
+        trip_categories: List<String>,
+        trip_cost: Int,
+        trip_start_time: String,
+        trip_end_time: String
+    ) {
+        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
+        val date = "$trip_start_time - $trip_end_time"
+        addToList(trip_name, date)
+        viewModel.getRoute(trip_categories, trip_start_time, trip_end_time, trip_cost)
+        viewModel.tripDataList.observe(this) { list ->
+            if (list.isSuccessful) {
+                Log.d("Main", list.body().toString())
+                list.body()?.let { adapter.setListOfRoutes(it, Route()) }
+            } else {
+                Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
             }
         }
     }
