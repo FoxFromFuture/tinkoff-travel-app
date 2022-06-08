@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,53 +31,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var imagesList = mutableListOf<Int>()
     private var titleList = mutableListOf<String>()
     private var dateList = mutableListOf<String>()
-    private var keyPointsList = mutableListOf<String>()
-    private var tripDescriptionList = mutableListOf<String>()
     private lateinit var adapter: TripCardAdapter
     private lateinit var tripPager: ViewPager2
+    lateinit var viewModel: TripCardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        postToList()
-//        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
+        viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
 
-//        viewModel.getStreet()
-//        viewModel.Street.observe(this, Observer { response ->
-//            if (response.isSuccessful) {
-//                Log.d("Main", response.body().toString())
-//                Log.d("Main", response.code().toString())
-//                Log.d("Main", response.headers().toString())
-//            } else {
-//                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//        viewModel.Street.observe(this) { list ->
-//            list.body()?.let { adapter.setNextStreet(it) }
-//        }
+        viewModel.tripDataList.observe(this) { list ->
+            if (list.isSuccessful) {
+                Log.d("Main", list.body().toString())
+                list.body()?.let { adapter.setListOfRoutes(it, Route()) }
+            } else {
+                Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
+            }
+        }
 
-//        viewModel.getRoute()
-//        viewModel.tripDataList.observe(this) { list ->
-//            if (list.isSuccessful) {
-//                Log.d("Main", list.body().toString())
-//                list.body()?.let { adapter.setListOfRoutes(it) }
-//            } else {
-//                Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//        viewModel.tripDataList.observe(this, Observer { response ->
-//            if (response.isSuccessful) {
-//                Log.d("Main", response.body().toString())
-//                Log.d("Main", response.code().toString())
-//                Log.d("Main", response.headers().toString())
-//            } else {
-//                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
-//            }
-//        })
-
-//        adapter =
-//            TripCardAdapter(imagesList, titleList, dateList, keyPointsList, tripDescriptionList)
         adapter =
             TripCardAdapter(imagesList, titleList, dateList)
         tripPager = findViewById(R.id.main_trip_pager)
@@ -121,34 +94,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonMap.setOnClickListener(this)
     }
 
-//    private fun addToList(
-//        image: Int,
-//        title: String,
-//        date: String,
-//        key_points: String,
-//        trip_description: String
-//    ) {
-//        imagesList.add(image)
-//        titleList.add(title)
-//        dateList.add(date)
-//        keyPointsList.add(key_points)
-//        tripDescriptionList.add(trip_description)
-//    }
-
     private fun addToList(title: String, date: String) {
         titleList.add(title)
         dateList.add(date)
     }
-
-//    private fun postToList() {
-//        addToList(
-//            R.drawable.base_trip_card_image,
-//            "Trip",
-//            "04-29-2022",
-//            "Moscow - City",
-//            "Text\n\n\nText"
-//        )
-//    }
 
     override fun onClick(view: View?) {
         when (view?.id) {
@@ -185,17 +134,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         trip_start_time: String,
         trip_end_time: String
     ) {
-        val viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
         val date = "$trip_start_time - $trip_end_time"
         addToList(trip_name, date)
         viewModel.getRoute(trip_categories, trip_start_time, trip_end_time, trip_cost)
-        viewModel.tripDataList.observe(this) { list ->
-            if (list.isSuccessful) {
-                Log.d("Main", list.body().toString())
-                list.body()?.let { adapter.setListOfRoutes(it, Route()) }
-            } else {
-                Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 }

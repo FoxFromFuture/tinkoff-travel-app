@@ -11,19 +11,6 @@ import retrofit2.Response
 
 class Repository {
 
-//    private val categoriesList = listOf("STREET", "BAR", "MUSEUM", "CAFE")
-
-//    suspend fun getRoute(): Response<Route> {
-//        return RetrofitInstance.api.getRoute(
-//            RetrofitGetRouteRequest(
-//                categories = categoriesList,
-//                startTime = "00:00",
-//                endTime = "23:59",
-//                budget = 50
-//            )
-//        )
-//    }
-
     suspend fun getRoute(categories: List<String>, startTime: String, endTime: String, budget: Int): Response<Route> {
         return RetrofitInstance.api.getRoute(
             RetrofitGetRouteRequest(categories, startTime, endTime, budget)

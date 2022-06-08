@@ -26,8 +26,6 @@ class TripCardAdapter(
 ) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
 
     var routeList = mutableListOf<Route>()
-    var curRoute = Route()
-//    var curRoute =  emptyList<RouteItem>()
 
     inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -39,7 +37,6 @@ class TripCardAdapter(
 
         init {
             itemImage.setOnClickListener {
-                val position = adapterPosition
                 Toast.makeText(itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
             }
             itemTripCard.setOnClickListener {
@@ -87,11 +84,8 @@ class TripCardAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun setListOfRoutes(list: List<RouteItem>, route: Route) {
-//        curRoute.clear()
-//        curRoute.addAll(list)
         route.addAll(list)
         routeList.add(route)
-//        curRoute = list
         notifyDataSetChanged()
     }
 
@@ -102,8 +96,5 @@ class TripCardAdapter(
         val tempKeyPointsString: String =
             routeList[position][0].name + " - " + routeList[position].elementAt(routeList[position].lastIndex).name
         holder.itemKeyPoints.text = tempKeyPointsString
-        if (position == title.lastIndex) {
-            routeList.clear()
-        }
     }
 }
