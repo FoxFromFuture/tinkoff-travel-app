@@ -9,6 +9,7 @@ class MainInterceptor : Interceptor {
             .newBuilder()
             .addHeader("Content-Type", "application/json")
             .addHeader("Authorization", "Basic YWRtaW46YWRtaW4=")
+            .addHeader("accept", "*/*")
             .build()
         return chain.proceed(request)
     }

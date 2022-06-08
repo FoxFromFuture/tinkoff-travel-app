@@ -16,67 +16,16 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.TripDescriptionActivity
+import com.tinkoff.travelapp.model.route.Route
 import com.tinkoff.travelapp.model.route.RouteItem
-import com.tinkoff.travelapp.model.street.Street
 
 class TripCardAdapter(
     private var images: List<Int>,
     private var title: List<String>,
-    private var date: List<String>,
-    private var key_points: List<String>,
-    private var trip_description: List<String>
+    private var date: List<String>
 ) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
 
-    var routeList = emptyList<RouteItem>()
-    var street: Street = Street()
-    var testRouteItem_0: RouteItem = RouteItem(
-        0,
-        "tempStreet",
-        "STREET",
-        56.313503,
-        44.008277,
-        "temp street",
-        "https://yandex.ru",
-        "00:00",
-        "23:59",
-        0
-    )
-    var testRouteItem_1: RouteItem = RouteItem(
-        1,
-        "tempBar",
-        "BAR",
-        76.313503,
-        24.008277,
-        "temp bar",
-        "https://yandex.ru",
-        "16:00",
-        "23:00",
-        2
-    )
-    var testRouteItem_2: RouteItem = RouteItem(
-        2,
-        "tempCafe",
-        "CAFE",
-        52.313503,
-        34.008277,
-        "temp cafe",
-        "https://yandex.ru",
-        "08:00",
-        "22:00",
-        3
-    )
-    var testRouteItem_3: RouteItem = RouteItem(
-        3,
-        "tempMuseum",
-        "MUSEUM",
-        69.313503,
-        48.008277,
-        "temp museum",
-        "https://yandex.ru",
-        "08:00",
-        "21:00",
-        1
-    )
+    var routeList = mutableListOf<Route>()
 
     inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -88,7 +37,6 @@ class TripCardAdapter(
 
         init {
             itemImage.setOnClickListener {
-                val position = adapterPosition
                 Toast.makeText(itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
             }
             itemTripCard.setOnClickListener {
@@ -100,11 +48,21 @@ class TripCardAdapter(
                     Pair(itemImage, "trip_card_transition")
                 )
 
-                intent.putExtra("itemImage", images[position])
+                val tempKeyPointsString: String =
+                    routeList[position][0].name + " - " + routeList[position].elementAt(routeList[position].lastIndex).name
+
+                var tempDescription = "Places: \n"
+                var placesCount = 1
+                for (item in routeList[position]) {
+                    tempDescription += "${placesCount}. ${item.name} \n"
+                    placesCount++
+                }
+
+                intent.putExtra("itemImage", R.drawable.base_trip_card_image)
                 intent.putExtra("itemTitle", title[position])
                 intent.putExtra("itemDate", date[position])
-                intent.putExtra("itemKeyPoints", key_points[position])
-                intent.putExtra("itemTripDescription", trip_description[position])
+                intent.putExtra("itemKeyPoints", tempKeyPointsString)
+                intent.putExtra("itemTripDescription", tempDescription)
 
                 startActivity(itemView.context, intent, options.toBundle())
             }
@@ -125,26 +83,18 @@ class TripCardAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setNextStreet(list: Street) {
-        street = list
+    fun setListOfRoutes(list: List<RouteItem>, route: Route) {
+        route.addAll(list)
+        routeList.add(route)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: TripCardAdapter.TripCardViewHolder, position: Int) {
-        holder.itemImage.setImageResource(images[position])
-//        holder.itemTitle.text = title[position]
-        holder.itemTitle.text = street.name
+        holder.itemImage.setImageResource(R.drawable.base_trip_card_image)
+        holder.itemTitle.text = title[position]
         holder.itemDate.text = date[position]
-//        holder.itemKeyPoints.text = key_points[position]
-        val tempKeyPointsString: String = testRouteItem_0.name + " - " + testRouteItem_3.name
+        val tempKeyPointsString: String =
+            routeList[position][0].name + " - " + routeList[position].elementAt(routeList[position].lastIndex).name
         holder.itemKeyPoints.text = tempKeyPointsString
-//        val tempKeyPointsString: String = routeList.get(0).name + " - " + routeList.get(routeList.size - 1).name
-//        holder.itemKeyPoints.text = tempKeyPointsString
     }
-
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun setListOfRoutes(list: List<RouteItem>) {
-//        routeList = list
-//        notifyDataSetChanged()
-//    }
 }

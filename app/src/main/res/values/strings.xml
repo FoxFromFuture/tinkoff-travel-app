@@ -36,6 +36,13 @@
     <string name="main_create_travel_popup_create_new_travel">Create new travel</string>
     <string name="main_create_travel_popup_go">Go!</string>
     <string name="main_create_travel_popup_name">Name</string>
+    <string name="main_create_travel_popup_budget">Cost</string>
+    <string name="main_create_travel_popup_start_time">Start Time</string>
+    <string name="main_create_travel_popup_end_time">End Time</string>
+    <string name="main_create_travel_popup_street_btn">Streets</string>
+    <string name="main_create_travel_popup_bar_btn">Bars</string>
+    <string name="main_create_travel_popup_cafe_btn">Cafes</string>
+    <string name="main_create_travel_popup_museum_btn">Museums</string>
 
     <!--    Map-->
     <string name="map_permission_needed">Unable to access location due to lack of permission</string>

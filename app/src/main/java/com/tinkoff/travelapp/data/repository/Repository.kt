@@ -1,5 +1,6 @@
 package com.tinkoff.travelapp.data.repository
 
+import com.tinkoff.travelapp.data.api.RetrofitGetRouteRequest
 import com.tinkoff.travelapp.data.api.RetrofitInstance
 import com.tinkoff.travelapp.model.bar.Bar
 import com.tinkoff.travelapp.model.cafe.Cafe
@@ -10,8 +11,10 @@ import retrofit2.Response
 
 class Repository {
 
-    suspend fun getRoute(): Response<Route> {
-        return RetrofitInstance.api.getRoute()
+    suspend fun getRoute(categories: List<String>, startTime: String, endTime: String, budget: Int): Response<Route> {
+        return RetrofitInstance.api.getRoute(
+            RetrofitGetRouteRequest(categories, startTime, endTime, budget)
+        )
     }
 
     suspend fun getStreet(): Response<Street> {

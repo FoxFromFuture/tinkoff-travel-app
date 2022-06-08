@@ -6,13 +6,15 @@ import com.tinkoff.travelapp.model.museum.Museum
 import com.tinkoff.travelapp.model.route.Route
 import com.tinkoff.travelapp.model.street.Street
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("/route")
-    suspend fun getRoute(): Response<Route>
+    @POST("/route")
+    suspend fun getRoute(@Body elementModel: RetrofitGetRouteRequest): Response<Route>
 
     @GET("/street?id=3")
     suspend fun getStreet(): Response<Street>

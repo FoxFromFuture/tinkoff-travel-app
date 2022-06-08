@@ -15,11 +15,11 @@ class TripCardViewModel : ViewModel() {
     val tripDataList: MutableLiveData<Response<Route>> = MutableLiveData()
     var Street: MutableLiveData<Response<Street>> = MutableLiveData()
 
-//    fun getRoute() {
-//        viewModelScope.launch {
-//            tripDataList.value = repository.getRoute()
-//        }
-//    }
+    fun getRoute(categories: List<String>, startTime: String, endTime: String, budget: Int) {
+        viewModelScope.launch {
+            tripDataList.value = repository.getRoute(categories, startTime, endTime, budget)
+        }
+    }
 
     fun getStreet() {
         viewModelScope.launch {
