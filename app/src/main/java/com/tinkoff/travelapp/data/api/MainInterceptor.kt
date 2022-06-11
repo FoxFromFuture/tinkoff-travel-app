@@ -13,6 +13,4 @@ class MainInterceptor : Interceptor {
             .build()
         return chain.proceed(request)
     }
-
-
 }

@@ -4,18 +4,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tinkoff.travelapp.data.repository.Repository
-import com.tinkoff.travelapp.model.route.Route
+import com.tinkoff.travelapp.model.street.Street
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class TripCardViewModel : ViewModel() {
+class AuthorizationViewModel : ViewModel() {
 
     var repository = Repository()
-    val tripDataList: MutableLiveData<Response<Route>> = MutableLiveData()
+    var Street: MutableLiveData<Response<Street>> = MutableLiveData()
 
-    fun getRoute(categories: List<String>, startTime: String, endTime: String, budget: Int) {
+    fun getStreet(auth: String) {
         viewModelScope.launch {
-            tripDataList.value = repository.getRoute(categories, startTime, endTime, budget)
+            Street.value = repository.getStreet(auth)
         }
     }
 }

@@ -16,16 +16,13 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.TripDescriptionActivity
-import com.tinkoff.travelapp.model.route.Route
-import com.tinkoff.travelapp.model.route.RouteItem
+import com.tinkoff.travelapp.database.model.TripDataModel
 
 class TripCardAdapter(
-    private var images: List<Int>,
-    private var title: List<String>,
-    private var date: List<String>
+    private var images: List<Int>
 ) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
 
-    var routeList = mutableListOf<Route>()
+    var routeList: List<TripDataModel> = listOfNotNull()
 
     inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -49,18 +46,20 @@ class TripCardAdapter(
                 )
 
                 val tempKeyPointsString: String =
-                    routeList[position][0].name + " - " + routeList[position].elementAt(routeList[position].lastIndex).name
+                    routeList[position].route[0].name + " - " + routeList[position].route.elementAt(
+                        routeList[position].route.lastIndex
+                    ).name
 
                 var tempDescription = "Places: \n"
                 var placesCount = 1
-                for (item in routeList[position]) {
+                for (item in routeList[position].route) {
                     tempDescription += "${placesCount}. ${item.name} \n"
                     placesCount++
                 }
 
                 intent.putExtra("itemImage", R.drawable.base_trip_card_image)
-                intent.putExtra("itemTitle", title[position])
-                intent.putExtra("itemDate", date[position])
+                intent.putExtra("itemTitle", routeList[position].title)
+                intent.putExtra("itemDate", routeList[position].date)
                 intent.putExtra("itemKeyPoints", tempKeyPointsString)
                 intent.putExtra("itemTripDescription", tempDescription)
 
@@ -79,22 +78,23 @@ class TripCardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return title.size
+        return routeList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setListOfRoutes(list: List<RouteItem>, route: Route) {
-        route.addAll(list)
-        routeList.add(route)
+    fun setListOfRoutes(list: List<TripDataModel>) {
+        routeList = list
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: TripCardAdapter.TripCardViewHolder, position: Int) {
         holder.itemImage.setImageResource(R.drawable.base_trip_card_image)
-        holder.itemTitle.text = title[position]
-        holder.itemDate.text = date[position]
+        holder.itemTitle.text = routeList[position].title
+        holder.itemDate.text = routeList[position].date
         val tempKeyPointsString: String =
-            routeList[position][0].name + " - " + routeList[position].elementAt(routeList[position].lastIndex).name
+            routeList[position].route[0].name + " - " + routeList[position].route.elementAt(
+                routeList[position].route.lastIndex
+            ).name
         holder.itemKeyPoints.text = tempKeyPointsString
     }
 }
