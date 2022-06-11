@@ -4,7 +4,7 @@
 
     <PreferenceCategory android:title="General settings">
 
-        <ListPreference
+        <com.tinkoff.travelapp.menu.CustomListPreference
             android:defaultValue="0"
             android:entries="@array/settings_theme_choosing_labels"
             android:entryValues="@array/settings_theme_choosing_values"

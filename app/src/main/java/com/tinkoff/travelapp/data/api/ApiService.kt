@@ -13,6 +13,6 @@ interface ApiService {
     @POST("/route")
     suspend fun getRoute(@Body elementModel: RetrofitGetRouteRequest): Response<Route>
 
-    @GET("/street?id=583")
-    suspend fun getStreet(@Header("Authorization") auth: String): Response<Street>
+    @GET("/street/all")
+    suspend fun getStreet(@Header("Authorization") auth: String): Response<List<Street>>
 }

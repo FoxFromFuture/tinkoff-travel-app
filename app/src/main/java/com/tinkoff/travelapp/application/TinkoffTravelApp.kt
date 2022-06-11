@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.tinkoff.travelapp.R
 import com.yandex.mapkit.MapKitFactory
+import com.yandex.mapkit.directions.DirectionsFactory
 
 class TinkoffTravelApp : Application() {
     override fun onCreate() {
@@ -33,5 +34,6 @@ class TinkoffTravelApp : Application() {
 
         MapKitFactory.setApiKey("7199a674-a718-43b5-9b0b-265e882bd690")
         MapKitFactory.initialize(this)
+        DirectionsFactory.initialize(this)
     }
 }

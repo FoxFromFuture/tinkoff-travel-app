@@ -17,7 +17,28 @@
         android:theme="@style/LightTheme.TravelApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MapActivity"
+            android:name=".entry.EntranceActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".entry.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".entry.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".entry.AfterSignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TripDescriptionActivity"
             android:exported="false" />
         <activity
             android:name=".menu.SettingsActivity"
@@ -32,29 +53,11 @@
             android:name=".menu.MyAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".TripDescriptionActivity"
+            android:name=".map.NoRouteMapActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".map.RouteMapActivity"
             android:exported="false" />
-        <activity
-            android:name=".SignInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AfterSignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EntranceActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

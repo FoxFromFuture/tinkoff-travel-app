@@ -9,13 +9,12 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class AuthorizationViewModel : ViewModel() {
-
     var repository = Repository()
-    var Street: MutableLiveData<Response<Street>> = MutableLiveData()
+    var street: MutableLiveData<Response<List<Street>>> = MutableLiveData()
 
     fun getStreet(auth: String) {
         viewModelScope.launch {
-            Street.value = repository.getStreet(auth)
+            street.value = repository.getStreet(auth)
         }
     }
 }

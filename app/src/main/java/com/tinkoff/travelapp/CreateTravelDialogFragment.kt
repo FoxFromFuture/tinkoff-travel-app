@@ -6,83 +6,171 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 
-class CreateTravelDialogFragment : DialogFragment() {
+class CreateTravelDialogFragment : DialogFragment(), View.OnClickListener {
+    private lateinit var rootView: View
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView: View = inflater.inflate(R.layout.main_create_travel_popup, container, false)
+        rootView = inflater.inflate(R.layout.main_create_travel_popup, container, false)
+
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        rootView.findViewById<Button>(R.id.create_travel_popup_button).setOnClickListener {
-            val trip_name = rootView.findViewById<EditText>(R.id.create_travel_popup_input_name)
-            val trip_name_value = trip_name.text.toString()
-            val trip_cost = rootView.findViewById<EditText>(R.id.create_travel_popup_input_budget)
-            val trip_cost_value = trip_cost.text.toString().toInt()
-            val trip_start_time =
-                rootView.findViewById<EditText>(R.id.create_travel_popup_input_start_time)
-            val trip_start_time_value = trip_start_time.text.toString()
-            val trip_end_time =
-                rootView.findViewById<EditText>(R.id.create_travel_popup_input_end_time)
-            val trip_end_time_value = trip_end_time.text.toString()
-
-            var temp_category_value: CheckBox
-            var trip_category_street_value: Boolean = false
-            var trip_category_bar_value: Boolean = false
-            var trip_category_cafe_value: Boolean = false
-            var trip_category_museum_value: Boolean = false
-
-            temp_category_value =
-                rootView.findViewById<CheckBox>(R.id.main_create_travel_popup_street_btn)
-            trip_category_street_value = temp_category_value.isChecked
-            temp_category_value =
-                rootView.findViewById<CheckBox>(R.id.main_create_travel_popup_bar_btn)
-            trip_category_bar_value = temp_category_value.isChecked
-            temp_category_value =
-                rootView.findViewById<CheckBox>(R.id.main_create_travel_popup_cafe_btn)
-            trip_category_cafe_value = temp_category_value.isChecked
-            temp_category_value =
-                rootView.findViewById<CheckBox>(R.id.main_create_travel_popup_museum_btn)
-            trip_category_museum_value = temp_category_value.isChecked
-
-
-            val categoriesList = mutableListOf<String>()
-            if (trip_category_street_value) {
-                categoriesList.add("STREET")
-            }
-            if (trip_category_bar_value) {
-                categoriesList.add("BAR")
-            }
-            if (trip_category_cafe_value) {
-                categoriesList.add("CAFE")
-            }
-            if (trip_category_museum_value) {
-                categoriesList.add("MUSEUM")
-            }
-
-            val mainActivity: MainActivity = activity as MainActivity
-
-            mainActivity.dialogFragmentListener(
-                trip_name_value,
-                categoriesList,
-                trip_cost_value,
-                trip_start_time_value,
-                trip_end_time_value
-            )
-
-            Toast.makeText(context, "Trip was created!", Toast.LENGTH_SHORT).show()
-
-            dismiss()
-        }
+        val buttonGo = rootView.findViewById<Button>(R.id.main_create_travel_popup_button)
+        buttonGo.setOnClickListener(this)
 
         return rootView
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.main_create_travel_popup_button -> {
+                val regexTime = """^([0-1]?[0-9]|2[0-3]):[0-5][0-9]${'$'}""".toRegex()
+
+                val textTripName =
+                    rootView.findViewById<EditText>(R.id.create_travel_popup_input_name)
+                val valueTripName = textTripName.text.toString()
+                    .ifEmpty { getString(R.string.main_create_travel_popup_untitled) }
+
+                val textTripCost =
+                    rootView.findViewById<EditText>(R.id.create_travel_popup_input_budget)
+                val valueTripCost =
+                    if (textTripCost.text.toString().isEmpty())
+                        0
+                    else
+                        textTripCost.text.toString().toInt()
+
+                val textTripStartTime =
+                    rootView.findViewById<EditText>(R.id.create_travel_popup_input_start_time)
+                val valueTripStartTime = textTripStartTime.text.toString()
+                if (valueTripStartTime.isEmpty()) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_start_time_empty),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if (!valueTripStartTime.matches(regexTime)) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_start_time_invalid),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+
+                val textTripEndTime =
+                    rootView.findViewById<EditText>(R.id.create_travel_popup_input_end_time)
+                val valueTripEndTime = textTripEndTime.text.toString()
+                if (valueTripEndTime.isEmpty()) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_end_time_empty),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if (!valueTripEndTime.matches(regexTime)) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_end_time_invalid),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+
+                if (valueTripStartTime >= valueTripEndTime) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_period_invalid),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+
+                val valueTripCategoryStreet: Boolean
+                val valueTripCategoryBar: Boolean
+                val valueTripCategoryCafe: Boolean
+                val valueTripCategoryMuseum: Boolean
+
+                var reusableCategoryValue =
+                    rootView.findViewById<CheckBox>(R.id.main_create_travel_popup_street_button)
+                valueTripCategoryStreet = reusableCategoryValue.isChecked
+
+                reusableCategoryValue =
+                    rootView.findViewById(R.id.main_create_travel_popup_bar_button)
+                valueTripCategoryBar = reusableCategoryValue.isChecked
+
+                reusableCategoryValue =
+                    rootView.findViewById(R.id.main_create_travel_popup_cafe_btn)
+                valueTripCategoryCafe = reusableCategoryValue.isChecked
+
+                reusableCategoryValue =
+                    rootView.findViewById(R.id.main_create_travel_popup_museum_button)
+                valueTripCategoryMuseum = reusableCategoryValue.isChecked
+
+                val categoriesList = mutableListOf<String>()
+                if (valueTripCategoryStreet) {
+                    categoriesList.add("STREET")
+                }
+                if (valueTripCategoryBar) {
+                    categoriesList.add("BAR")
+                }
+                if (valueTripCategoryCafe) {
+                    categoriesList.add("CAFE")
+                }
+                if (valueTripCategoryMuseum) {
+                    categoriesList.add("MUSEUM")
+                }
+
+                if (categoriesList.isEmpty()) {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.main_create_travel_popup_error_choose_types),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+
+                val radioGroup =
+                    rootView.findViewById<RadioGroup>(R.id.main_create_travel_popup_radiogroup)
+                val checkedRadioButton =
+                    rootView.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+                var valueTripDuration: TripDurations = TripDurations.SHORT
+                when (checkedRadioButton.text) {
+                    getString(R.string.main_create_travel_popup_short) -> {
+                        valueTripDuration = TripDurations.SHORT
+                    }
+                    getString(R.string.main_create_travel_popup_medium) -> {
+                        valueTripDuration = TripDurations.MEDIUM
+                    }
+                    getString(R.string.main_create_travel_popup_long) -> {
+                        valueTripDuration = TripDurations.LONG
+                    }
+                }
+
+                Toast.makeText(
+                    context,
+                    getString(R.string.main_create_travel_popup_travel_created),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                (activity as MainActivity).dialogFragmentListener(
+                    valueTripName,
+                    categoriesList,
+                    valueTripCost,
+                    valueTripStartTime,
+                    valueTripEndTime,
+                    valueTripDuration
+                )
+
+                dismiss()
+            }
+        }
     }
 
     companion object {

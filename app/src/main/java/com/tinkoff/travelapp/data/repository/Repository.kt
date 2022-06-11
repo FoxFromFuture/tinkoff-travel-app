@@ -19,7 +19,7 @@ class Repository {
         )
     }
 
-    suspend fun getStreet(auth: String): Response<Street> {
+    suspend fun getStreet(auth: String): Response<List<Street>> {
         return RetrofitInstance.api.getStreet(auth)
     }
 }

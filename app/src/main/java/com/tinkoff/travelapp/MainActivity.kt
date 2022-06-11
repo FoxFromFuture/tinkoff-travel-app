@@ -17,6 +17,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.tinkoff.travelapp.adapter.TripCardAdapter
+import com.tinkoff.travelapp.entry.SignInActivity
+import com.tinkoff.travelapp.map.NoRouteMapActivity
 import com.tinkoff.travelapp.database.DBManager
 import com.tinkoff.travelapp.database.model.TripDataModel
 import com.tinkoff.travelapp.menu.FAQActivity
@@ -25,20 +27,21 @@ import com.tinkoff.travelapp.menu.SettingsActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var imagesList = mutableListOf<Int>()
+    private var durationsList = mutableListOf<TripDurations>()
     private lateinit var adapter: TripCardAdapter
     private lateinit var tripPager: ViewPager2
     lateinit var viewModel: TripCardViewModel
     val dbManager = DBManager(this)
     var tripList = mutableListOf<TripDataModel>()
-    var tripName: String = ""
-    var tripDate: String = ""
+    var tripNameBuffer: String = ""
+    var tripDateBuffer: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         adapter =
-            TripCardAdapter(imagesList)
+            TripCardAdapter(imagesList, durationsList)
         tripPager = findViewById(R.id.main_trip_pager)
 
         dbManager.openDb()
@@ -50,17 +53,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d("Main", list.body().toString())
                 tripPager.adapter = adapter
                 list.body()?.let {
-                    dbManager.writeDbData(tripName, tripDate, it)
+                    dbManager.writeDbData(tripNameBuffer, tripDateBuffer, it)
                     addToTripList(dbManager.readDbData())
                 }
             } else {
                 Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
             }
         }
-
-
-        val buttonMenu = findViewById<ImageButton>(R.id.main_menu_button)
-        buttonMenu.setOnClickListener(this)
 
         val drawer = findViewById<DrawerLayout>(R.id.main_drawer_layout)
         val navigationView = findViewById<NavigationView>(R.id.main_navigation)
@@ -87,13 +86,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             true
         }
 
+        val buttonMenu = findViewById<ImageButton>(R.id.main_menu_button)
+        buttonMenu.setOnClickListener(this)
+
         val buttonCreateTravel = findViewById<FloatingActionButton>(R.id.main_add_travel_button)
         buttonCreateTravel.setOnClickListener(this)
 
         val buttonLogout = findViewById<Button>(R.id.main_menu_logout_button)
         buttonLogout.setOnClickListener(this)
 
-        val buttonMap = findViewById<ImageButton>(R.id.main_global_button)
+        val buttonMap = findViewById<ImageButton>(R.id.main_map_button)
         buttonMap.setOnClickListener(this)
     }
 
@@ -131,8 +133,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 finishAffinity()
                 startActivity(intent)
             }
-            R.id.main_global_button -> {
-                val intent = Intent(this, MapActivity::class.java)
+            R.id.main_map_button -> {
+                val intent = Intent(this, NoRouteMapActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -144,15 +146,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun dialogFragmentListener(
-        trip_name: String,
-        trip_categories: List<String>,
-        trip_cost: Int,
-        trip_start_time: String,
-        trip_end_time: String
+        tripName: String,
+        tripCategories: List<String>,
+        tripCost: Int,
+        tripStartTime: String,
+        tripEndTime: String,
+        tripDuration: TripDurations
     ) {
-        val date = "$trip_start_time - $trip_end_time"
-        tripName = trip_name
-        tripDate = date
-        viewModel.getRoute(trip_categories, trip_start_time, trip_end_time, trip_cost)
+        val date = "$tripStartTime - $tripEndTime"
+        tripNameBuffer = tripName
+        tripDateBuffer = date
+        durationsList.add(tripDuration)
+        viewModel.getRoute(tripCategories, tripStartTime, tripEndTime, tripCost)
     }
 }

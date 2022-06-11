@@ -23,6 +23,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.settings_back_button -> {
                 onBackPressed()
+                finish()
             }
         }
     }

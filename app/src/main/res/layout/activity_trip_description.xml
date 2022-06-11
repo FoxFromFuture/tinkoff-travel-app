@@ -117,7 +117,7 @@
             android:layout_marginStart="5sp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/sfprodisplay_medium"
-            android:text="@string/trip_description"
+            android:text="@string/trip_card_description"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trip_description_linearLayout" />

@@ -1,10 +1,11 @@
-package com.tinkoff.travelapp
+package com.tinkoff.travelapp.entry
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.tinkoff.travelapp.R
 
 class EntranceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,5 +1,7 @@
 package com.tinkoff.travelapp.menu
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -19,12 +21,21 @@ class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
 
         val buttonBack = findViewById<ImageButton>(R.id.settings_about_back_button)
         buttonBack.setOnClickListener(this)
+
+        val buttonGithub = findViewById<TextView>(R.id.settings_about_link)
+        buttonGithub.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.settings_about_back_button -> {
                 onBackPressed()
+                finish()
+            }
+            R.id.settings_about_link -> {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.settings_about_link)))
+                startActivity(intent)
             }
         }
     }
