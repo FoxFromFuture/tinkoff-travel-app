@@ -12,15 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.tinkoff.travelapp.AuthorizationViewModel
 import com.tinkoff.travelapp.MainActivity
 import com.tinkoff.travelapp.R
-import java.util.*
+import com.tinkoff.travelapp.database.DBManager
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: AuthorizationViewModel
 
+    private var loginPair: String = ""
+    private val dbManager: DBManager = DBManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        dbManager.openDb()
 
         viewModel = ViewModelProvider(this)[AuthorizationViewModel::class.java]
         viewModel.street.observe(this) { response ->
@@ -28,6 +33,8 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, getString(R.string.sign_in_welcome_back), Toast.LENGTH_SHORT)
                     .show()
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("loginPair", this.loginPair)
+                dbManager.writeUserDbData(this.loginPair)
                 finishAffinity()
                 startActivity(intent)
             } else {
@@ -58,10 +65,19 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                 val authEmail = findViewById<EditText>(R.id.sign_in_email_input).text.toString()
                 val authPassword =
                     findViewById<EditText>(R.id.sign_in_password_input).text.toString()
-                val encoder = Base64.getEncoder()
-                viewModel.getStreet(
-                    "Basic " + encoder.encodeToString("${authEmail}:${authPassword}".toByteArray())
-                )
+                if (authEmail.isEmpty() || authPassword.isEmpty()) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.sign_in_invalid_email_password),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return
+                }
+                loginPair = android.util.Base64.encodeToString(
+                    "${authEmail}:${authPassword}".toByteArray(),
+                    android.util.Base64.DEFAULT
+                ).dropLast(1)
+                viewModel.getStreet("Basic $loginPair")
             }
             R.id.sign_in_forgot_password_text_button -> {
                 Toast.makeText(context, getString(R.string.sign_in_cant), Toast.LENGTH_SHORT).show()
@@ -71,5 +87,10 @@ class SignInActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        dbManager.closeDb()
+        super.onDestroy()
     }
 }

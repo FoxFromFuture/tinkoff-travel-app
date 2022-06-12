@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
-import android.util.Log
 import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -18,15 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.TripDescriptionActivity
+import com.tinkoff.travelapp.database.DBManager
 import com.tinkoff.travelapp.database.model.TripDataModel
-import com.tinkoff.travelapp.TripDurations
-import com.tinkoff.travelapp.model.route.Route
-import com.tinkoff.travelapp.model.route.RouteItem
-import kotlin.random.Random
 
 class TripCardAdapter(
     private var images: List<Int>,
-    private var duration: List<TripDurations>
 ) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
 
     var routeList: List<TripDataModel> = listOfNotNull()
@@ -38,6 +34,7 @@ class TripCardAdapter(
         val itemTitle: TextView = itemView.findViewById(R.id.trip_card_title)
         val itemDate: TextView = itemView.findViewById(R.id.trip_card_date)
         val itemKeyPoints: TextView = itemView.findViewById(R.id.trip_card_key_points)
+        val itemRemoveButton: ImageButton = itemView.findViewById(R.id.trip_card_remove)
 
         init {
             itemImage.setOnClickListener {
@@ -75,6 +72,17 @@ class TripCardAdapter(
 
                 startActivity(itemView.context, intent, options.toBundle())
             }
+            itemRemoveButton.setOnClickListener {
+                val dbManager = DBManager(itemRemoveButton.context)
+                val position = adapterPosition
+                dbManager.openDb()
+                dbManager.removeTripFromDb(routeList[position].userId, routeList[position].id)
+                setListOfRoutes(dbManager.readTripDbData(routeList[position].userId))
+                Toast.makeText(itemRemoveButton.context, "Successfully removed", Toast.LENGTH_SHORT)
+                    .show()
+                notifyDataSetChanged()
+                dbManager.closeDb()
+            }
         }
     }
 
@@ -91,57 +99,9 @@ class TripCardAdapter(
         return routeList.size
     }
 
-    private fun compressRouteToDuration(route: Route, routeDuration: TripDurations): Route {
-        val newRoute = Route()
-        val random = Random(System.currentTimeMillis())
-
-        val randomShortNumber: Int
-        var index: Int
-        when (routeDuration) {
-            TripDurations.SHORT -> {
-                randomShortNumber = random.nextInt(2, 3)
-                for (i in 1..randomShortNumber) {
-                    index = random.nextInt(route.size)
-                    newRoute.add(route[index])
-                    route.removeAt(index)
-                    if (route.isEmpty()) {
-                        break
-                    }
-                }
-            }
-            TripDurations.MEDIUM -> {
-                randomShortNumber = random.nextInt(5, 6)
-                for (i in 1..randomShortNumber) {
-                    index = random.nextInt(route.size)
-                    newRoute.add(route[index])
-                    route.removeAt(index)
-                    if (route.isEmpty()) {
-                        break
-                    }
-                }
-            }
-            TripDurations.LONG -> {
-                randomShortNumber = random.nextInt(9, 10)
-                for (i in 1..randomShortNumber) {
-                    index = random.nextInt(route.size)
-                    newRoute.add(route[index])
-                    route.removeAt(index)
-                    if (route.isEmpty()) {
-                        break
-                    }
-                }
-            }
-        }
-
-        return newRoute
-    }
-
-
     @SuppressLint("NotifyDataSetChanged")
     fun setListOfRoutes(list: List<TripDataModel>) {
         routeList = list
-//        val compressed = compressRouteToDuration(route, duration[title.size - 1])
-//        routeList.add(compressed)
         notifyDataSetChanged()
     }
 

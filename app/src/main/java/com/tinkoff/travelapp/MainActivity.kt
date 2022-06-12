@@ -17,31 +17,40 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.tinkoff.travelapp.adapter.TripCardAdapter
-import com.tinkoff.travelapp.entry.SignInActivity
-import com.tinkoff.travelapp.map.NoRouteMapActivity
 import com.tinkoff.travelapp.database.DBManager
 import com.tinkoff.travelapp.database.model.TripDataModel
+import com.tinkoff.travelapp.entry.SignInActivity
+import com.tinkoff.travelapp.map.NoRouteMapActivity
 import com.tinkoff.travelapp.menu.FAQActivity
 import com.tinkoff.travelapp.menu.MyAccountActivity
 import com.tinkoff.travelapp.menu.SettingsActivity
+import com.tinkoff.travelapp.model.route.Route
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var imagesList = mutableListOf<Int>()
-    private var durationsList = mutableListOf<TripDurations>()
+
+    private lateinit var loginPair: String
+
     private lateinit var adapter: TripCardAdapter
     private lateinit var tripPager: ViewPager2
     lateinit var viewModel: TripCardViewModel
-    val dbManager = DBManager(this)
-    var tripList = mutableListOf<TripDataModel>()
-    var tripNameBuffer: String = ""
-    var tripDateBuffer: String = ""
+
+    private val dbManager = DBManager(this)
+
+    private var tripList = mutableListOf<TripDataModel>()
+    private var tripNameBuffer: String = ""
+    private var tripDateBuffer: String = ""
+    private var tripDurationBuffer: TripDurations = TripDurations.SHORT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        loginPair = intent.getStringExtra("loginPair").toString()
+
         adapter =
-            TripCardAdapter(imagesList, durationsList)
+            TripCardAdapter(imagesList)
         tripPager = findViewById(R.id.main_trip_pager)
 
         dbManager.openDb()
@@ -53,8 +62,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d("Main", list.body().toString())
                 tripPager.adapter = adapter
                 list.body()?.let {
-                    dbManager.writeDbData(tripNameBuffer, tripDateBuffer, it)
-                    addToTripList(dbManager.readDbData())
+                    dbManager.writeTripDbData(
+                        tripNameBuffer,
+                        tripDateBuffer,
+                        compressRouteToDuration(it, tripDurationBuffer),
+                        loginPair
+                    )
+                    addToTripList(dbManager.readTripDbData(dbManager.getUserIdByLoginPair(loginPair)))
                 }
             } else {
                 Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
@@ -100,16 +114,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getDbData() {
-        tripList = dbManager.readDbData()
+        tripList = dbManager.readTripDbData(dbManager.getUserIdByLoginPair(loginPair))
         adapter.setListOfRoutes(tripList)
         tripPager.adapter = adapter
     }
 
     private fun addToTripList(list: ArrayList<TripDataModel>) {
+        tripList.clear()
         for (item in list) {
             tripList.add(item)
         }
         adapter.setListOfRoutes(tripList)
+        tripPager.adapter = adapter
     }
 
     override fun onClick(view: View?) {
@@ -141,8 +157,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         dbManager.closeDb()
+        super.onDestroy()
     }
 
     fun dialogFragmentListener(
@@ -156,7 +172,52 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val date = "$tripStartTime - $tripEndTime"
         tripNameBuffer = tripName
         tripDateBuffer = date
-        durationsList.add(tripDuration)
+        tripDurationBuffer = tripDuration
         viewModel.getRoute(tripCategories, tripStartTime, tripEndTime, tripCost)
+    }
+
+    private fun compressRouteToDuration(route: Route, routeDuration: TripDurations): Route {
+        val newRoute = Route()
+        val random = Random(System.currentTimeMillis())
+
+        val randomShortNumber: Int
+        var index: Int
+        when (routeDuration) {
+            TripDurations.SHORT -> {
+                randomShortNumber = random.nextInt(2, 3)
+                for (i in 1..randomShortNumber) {
+                    index = random.nextInt(route.size)
+                    newRoute.add(route[index])
+                    route.removeAt(index)
+                    if (route.isEmpty()) {
+                        break
+                    }
+                }
+            }
+            TripDurations.MEDIUM -> {
+                randomShortNumber = random.nextInt(5, 6)
+                for (i in 1..randomShortNumber) {
+                    index = random.nextInt(route.size)
+                    newRoute.add(route[index])
+                    route.removeAt(index)
+                    if (route.isEmpty()) {
+                        break
+                    }
+                }
+            }
+            TripDurations.LONG -> {
+                randomShortNumber = random.nextInt(9, 10)
+                for (i in 1..randomShortNumber) {
+                    index = random.nextInt(route.size)
+                    newRoute.add(route[index])
+                    route.removeAt(index)
+                    if (route.isEmpty()) {
+                        break
+                    }
+                }
+            }
+        }
+
+        return newRoute
     }
 }

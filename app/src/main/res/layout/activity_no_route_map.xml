@@ -59,6 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map_zoom_in_out_controls_layout"
+        app:layout_constraintVertical_bias="0.30"
         tools:ignore="ContentDescription" />
 
     <ImageButton

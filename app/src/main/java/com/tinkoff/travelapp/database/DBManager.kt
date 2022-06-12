@@ -8,44 +8,99 @@ import com.tinkoff.travelapp.database.model.TripDataModel
 import com.tinkoff.travelapp.model.route.Route
 
 class DBManager(context: Context) {
-    val dbHelper = DBHelper(context)
-    var db: SQLiteDatabase? = null
+    private val dbHelper = DBHelper(context)
+    private var db: SQLiteDatabase? = null
 
     fun openDb() {
         db = dbHelper.writableDatabase
     }
 
-    fun writeDbData(title: String, date: String, route: Route) {
+    fun writeTripDbData(title: String, date: String, route: Route, owner: String) {
         val values = ContentValues().apply {
-            put(DBDeclaration.COLUMN_NAME_TITLE, title)
-            put(DBDeclaration.COLUMN_NAME_DATE, date)
-            put(DBDeclaration.COLUMN_NAME_ROUTE, Gson().toJson(route))
+            put(DBDeclaration.TRIPS_COLUMN_NAME_TITLE, title)
+            put(DBDeclaration.TRIPS_COLUMN_NAME_DATE, date)
+            put(DBDeclaration.TRIPS_COLUMN_NAME_ROUTE, Gson().toJson(route))
+            put(DBDeclaration.TRIPS_COLUMN_NAME_OWNER, getUserIdByLoginPair(owner))
         }
-        db?.insert(DBDeclaration.TABLE_NAME, null, values)
+        db?.insert(DBDeclaration.TRIPS_TABLE_NAME, null, values)
     }
 
-    fun readDbData(): ArrayList<TripDataModel> {
+    fun getUserIdByLoginPair(loginPair: String): Int {
+        val cursor = db?.rawQuery(
+            "SELECT ${DBDeclaration.USERS_COLUMN_NAME_ID} FROM ${DBDeclaration.USERS_TABLE_NAME} WHERE ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_LOGIN_PAIR} = \'$loginPair\'",
+            null
+        )
+        var index = 0
+        cursor?.let {
+            while (cursor.moveToNext()) {
+                index = it.getInt(it.getColumnIndex(DBDeclaration.USERS_COLUMN_NAME_ID))
+            }
+            cursor.close()
+        }
+        return index
+    }
+
+    fun writeUserDbData(loginPair: String) {
+        val values = ContentValues().apply {
+            put(DBDeclaration.USERS_COLUMN_NAME_LOGIN_PAIR, loginPair)
+        }
+        if (!isUserExists(loginPair)) {
+            db?.insert(DBDeclaration.USERS_TABLE_NAME, null, values)
+        }
+    }
+
+    private fun isUserExists(loginPair: String): Boolean {
+        val cursor = db?.rawQuery(
+            "SELECT ${DBDeclaration.USERS_COLUMN_NAME_ID} FROM ${DBDeclaration.USERS_TABLE_NAME} WHERE ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_LOGIN_PAIR} = \'$loginPair\'",
+            null
+        )
+        var index = 0
+        cursor?.let {
+            while (cursor.moveToNext()) {
+                index = it.getInt(it.getColumnIndex(DBDeclaration.USERS_COLUMN_NAME_ID))
+            }
+            cursor.close()
+        }
+        if (index == 0) {
+            return false
+        }
+        return true
+    }
+
+    fun readTripDbData(userId: Int): ArrayList<TripDataModel> {
         val dataList = ArrayList<TripDataModel>()
-        val cursor = db?.query(DBDeclaration.TABLE_NAME, null, null, null, null, null, null)
-        with(cursor) {
-            while (this?.moveToNext()!!) {
+        val cursor = db?.rawQuery(
+            "SELECT * FROM ${DBDeclaration.TRIPS_TABLE_NAME} JOIN ${DBDeclaration.USERS_TABLE_NAME} ON ${DBDeclaration.TRIPS_TABLE_NAME}.${DBDeclaration.TRIPS_COLUMN_NAME_OWNER} = ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_ID} WHERE ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_ID} = $userId",
+            null
+        )
+        cursor?.let {
+            while (it.moveToNext()) {
+                val tripId =
+                    it.getInt(it.getColumnIndex(DBDeclaration.TRIPS_COLUMN_NAME_ID))
                 val tripTitle =
-                    cursor?.getString(cursor.getColumnIndex(DBDeclaration.COLUMN_NAME_TITLE))
+                    it.getString(it.getColumnIndex(DBDeclaration.TRIPS_COLUMN_NAME_TITLE))
                 val tripDate =
-                    cursor?.getString(cursor.getColumnIndex(DBDeclaration.COLUMN_NAME_DATE))
+                    it.getString(it.getColumnIndex(DBDeclaration.TRIPS_COLUMN_NAME_DATE))
                 val tripRoute =
-                    cursor?.getString(cursor.getColumnIndex(DBDeclaration.COLUMN_NAME_ROUTE))
+                    it.getString(it.getColumnIndex(DBDeclaration.TRIPS_COLUMN_NAME_ROUTE))
+                val tripUserId =
+                    it.getInt(it.getColumnIndex(DBDeclaration.TRIPS_COLUMN_NAME_OWNER))
                 val tripModel = TripDataModel(
+                    tripId,
                     tripTitle.toString(),
                     tripDate.toString(),
-                    Gson().fromJson(tripRoute, Route::class.java)
+                    Gson().fromJson(tripRoute, Route::class.java),
+                    tripUserId
                 )
-
                 dataList.add(tripModel)
             }
+            it.close()
         }
-        cursor?.close()
         return dataList
+    }
+
+    fun removeTripFromDb(userId: Int, tripIdToRemove: Int) {
+        db?.execSQL("DELETE FROM ${DBDeclaration.TRIPS_TABLE_NAME} WHERE ${DBDeclaration.TRIPS_TABLE_NAME}.${DBDeclaration.TRIPS_COLUMN_NAME_ID} IN (SELECT ${DBDeclaration.TRIPS_TABLE_NAME}.${DBDeclaration.TRIPS_COLUMN_NAME_ID} FROM ${DBDeclaration.TRIPS_TABLE_NAME} JOIN ${DBDeclaration.USERS_TABLE_NAME} ON ${DBDeclaration.TRIPS_TABLE_NAME}.${DBDeclaration.TRIPS_COLUMN_NAME_OWNER} = ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_ID} WHERE ${DBDeclaration.TRIPS_TABLE_NAME}.${DBDeclaration.TRIPS_COLUMN_NAME_ID} = $tripIdToRemove AND ${DBDeclaration.USERS_TABLE_NAME}.${DBDeclaration.USERS_COLUMN_NAME_ID} = $userId)")
     }
 
     fun closeDb() {

@@ -50,7 +50,7 @@ class NoRouteMapActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var activePassiveUserLocationBitmap: ImageProvider
     private lateinit var inactiveUserLocationBitmap: ImageProvider
 
-    private val constMapAnimation = Animation(Animation.Type.SMOOTH, 0.3f)
+    private val constMapAnimation = Animation(Animation.Type.SMOOTH, 0.4f)
     private val constZoomCloseUp = 19.0f
 
     private fun moveCameraToPosition(
@@ -94,7 +94,7 @@ class NoRouteMapActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_no_route_map)
 
         mapView = findViewById(R.id.map_map)
         when (PreferenceManager.getDefaultSharedPreferences(this)

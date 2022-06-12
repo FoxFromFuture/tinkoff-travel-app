@@ -64,7 +64,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var activePassiveUserLocationBitmap: ImageProvider
     private lateinit var inactiveUserLocationBitmap: ImageProvider
 
-    private val constMapAnimation = Animation(Animation.Type.SMOOTH, 0.3f)
+    private val constMapAnimation = Animation(Animation.Type.SMOOTH, 0.4f)
     private val constZoomCloseUp = 19.0f
 
     private fun moveCameraToPosition(
@@ -108,7 +108,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        setContentView(R.layout.activity_route_map)
 
         mapView = findViewById(R.id.map_map)
         when (PreferenceManager.getDefaultSharedPreferences(this)
@@ -354,7 +354,6 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
         val mapPinBitmap =
             ImageProvider.fromBitmap(getBitmapFromDrawable(R.drawable.baseline_map_pin_24))
         val points: ArrayList<RequestPoint> = ArrayList()
-        val loopSize = routeToBeDisplayed.size - 1
         userLocationCoordinates?.let {
             points.add(
                 RequestPoint(
@@ -363,7 +362,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     null
                 )
             )
-            for (i in 1 until loopSize - 1) {
+            for (i in 0 until routeToBeDisplayed.size - 1) {
                 points.add(
                     RequestPoint(
                         Point(
@@ -384,8 +383,8 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
             points.add(
                 RequestPoint(
                     Point(
-                        routeToBeDisplayed[loopSize].coordinateX,
-                        routeToBeDisplayed[loopSize].coordinateY
+                        routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateX,
+                        routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateY
                     ),
                     RequestPointType.WAYPOINT,
                     null
@@ -393,8 +392,8 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
             )
             mapObjects.addPlacemark(
                 Point(
-                    routeToBeDisplayed[loopSize].coordinateX,
-                    routeToBeDisplayed[loopSize].coordinateY
+                    routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateX,
+                    routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateY
                 ), mapPinBitmap
             )
         }
