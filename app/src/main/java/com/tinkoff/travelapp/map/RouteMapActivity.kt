@@ -362,7 +362,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     null
                 )
             )
-            for (i in 0 until routeToBeDisplayed.size - 1) {
+            for (i in 0 until routeToBeDisplayed.size) {
                 points.add(
                     RequestPoint(
                         Point(
