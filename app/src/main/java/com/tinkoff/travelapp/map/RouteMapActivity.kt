@@ -53,12 +53,16 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
     private var isBeingTracked: Boolean = false
     private var isCameraFollowing: Boolean = false
 
-    private lateinit var routeToBeDisplayed: Route
     private lateinit var mapObjects: MapObjectCollection
+
+    private lateinit var routeToBeDisplayed: Route
     private lateinit var drivingRouter: DrivingRouter
     private lateinit var drivingSession: DrivingSession
 
-    private var isRouteShowing: Boolean = false
+    private var isRouteShowingWithUser: Boolean? = null
+
+    private var userRoutePolylines = mutableListOf<PolylineMapObject>()
+    private var userRouteObjects = mutableListOf<PlacemarkMapObject>()
 
     private lateinit var activeUserLocationBitmap: ImageProvider
     private lateinit var activePassiveUserLocationBitmap: ImageProvider
@@ -151,10 +155,11 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     val location = locationList.last()
                     userLocationCoordinates = location
                     isLocationObtained = true
-                    if (!isRouteShowing) {
+                    val point = Point(location.latitude, location.longitude)
+                    if (isRouteShowingWithUser != true) {
+                        isRouteShowingWithUser = true
                         submitRouteRequest()
                     }
-                    val point = Point(location.latitude, location.longitude)
                     if (userLocationMapObject == null) {
                         userLocationMapObject = mapView.map.mapObjects.addPlacemark(
                             point,
@@ -167,6 +172,10 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                         if (isCameraFollowing) {
                             moveCameraToPosition(point)
                         }
+                    }
+                    if (isRouteShowingWithUser != true) {
+                        submitRouteRequest()
+                        isRouteShowingWithUser = true
                     }
                     Log.d(
                         "UserLocation",
@@ -212,6 +221,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
         buttonBack.setOnClickListener(this)
 
         buttonMyLocation.performClick()
+//        submitRouteRequest()
     }
 
     override fun onClick(view: View?) {
@@ -321,6 +331,8 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     }
                     -1 -> {
                         isLocationPermissionsObtained = false
+                        isRouteShowingWithUser = false
+                        submitRouteRequest()
                     }
                 }
             }
@@ -328,11 +340,11 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun onDrivingRoutes(routes: MutableList<DrivingRoute>) {
-        val mapPinBitmap =
-            ImageProvider.fromBitmap(getBitmapFromDrawable(R.drawable.baseline_map_pin_24))
-        for (route in routes) {
-            mapObjects.addPlacemark(route.routePosition.point, mapPinBitmap)
-            mapObjects.addPolyline(route.geometry)
+        routes.forEach {
+            val tempPolyline = mapObjects.addPolyline(it.geometry)
+            tempPolyline.strokeWidth = 0.5f
+            tempPolyline.gradientLength = 1.0f
+            userRoutePolylines.add(mapObjects.addPolyline(it.geometry))
         }
     }
 
@@ -353,48 +365,138 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
 
         val mapPinBitmap =
             ImageProvider.fromBitmap(getBitmapFromDrawable(R.drawable.baseline_map_pin_24))
+
+        if (isRouteShowingWithUser == false) {
+            userRoutePolylines.forEach {
+                mapObjects.remove(it)
+            }
+            userRouteObjects.forEach {
+                mapObjects.remove(it)
+            }
+        }
+
         val points: ArrayList<RequestPoint> = ArrayList()
-        userLocationCoordinates?.let {
-            points.add(
-                RequestPoint(
-                    Point(it.latitude, it.longitude),
-                    RequestPointType.WAYPOINT,
-                    null
-                )
-            )
-            for (i in 0 until routeToBeDisplayed.size) {
+        if (isRouteShowingWithUser == true) {
+            userLocationCoordinates?.let { location ->
                 points.add(
                     RequestPoint(
-                        Point(
-                            routeToBeDisplayed[i].coordinateX,
-                            routeToBeDisplayed[i].coordinateY
-                        ),
-                        RequestPointType.VIAPOINT,
+                        Point(location.latitude, location.longitude),
+                        RequestPointType.WAYPOINT,
                         null
                     )
                 )
-                mapObjects.addPlacemark(
-                    Point(
-                        routeToBeDisplayed[i].coordinateX,
-                        routeToBeDisplayed[i].coordinateY
-                    ), mapPinBitmap
+                moveCameraToPosition(
+                    Point(location.latitude, location.longitude), constZoomCloseUp
+                )
+                userRouteObjects.add(
+                    mapObjects.addPlacemark(
+                        Point(
+                            location.latitude,
+                            location.longitude
+                        ), mapPinBitmap
+                    )
+                )
+                routeToBeDisplayed.dropLast(1).forEach { routeItem ->
+                    points.add(
+                        RequestPoint(
+                            Point(
+                                routeItem.coordinateX,
+                                routeItem.coordinateY
+                            ),
+                            RequestPointType.VIAPOINT,
+                            null
+                        )
+                    )
+                    userRouteObjects.add(
+                        mapObjects.addPlacemark(
+                            Point(
+                                routeItem.coordinateX,
+                                routeItem.coordinateY
+                            ), mapPinBitmap
+                        )
+                    )
+                }
+                points.add(
+                    RequestPoint(
+                        Point(
+                            routeToBeDisplayed.last().coordinateX,
+                            routeToBeDisplayed.last().coordinateY
+                        ),
+                        RequestPointType.WAYPOINT,
+                        null
+                    )
+                )
+                userRouteObjects.add(
+                    mapObjects.addPlacemark(
+                        Point(
+                            routeToBeDisplayed.last().coordinateX,
+                            routeToBeDisplayed.last().coordinateY
+                        ), mapPinBitmap
+                    )
                 )
             }
+        } else if (isRouteShowingWithUser == false) {
             points.add(
                 RequestPoint(
                     Point(
-                        routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateX,
-                        routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateY
+                        routeToBeDisplayed.first().coordinateX,
+                        routeToBeDisplayed.first().coordinateY
                     ),
                     RequestPointType.WAYPOINT,
                     null
                 )
             )
-            mapObjects.addPlacemark(
+            moveCameraToPosition(
                 Point(
-                    routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateX,
-                    routeToBeDisplayed[routeToBeDisplayed.size - 1].coordinateY
-                ), mapPinBitmap
+                    routeToBeDisplayed.first().coordinateX,
+                    routeToBeDisplayed.first().coordinateY
+                ), constZoomCloseUp
+            )
+            userRouteObjects.add(
+                mapObjects.addPlacemark(
+                    Point(
+                        routeToBeDisplayed.first().coordinateX,
+                        routeToBeDisplayed.first().coordinateY
+                    ), mapPinBitmap
+                )
+            )
+            routeToBeDisplayed.drop(1).dropLast(1).forEach { routeItem ->
+                points.add(
+                    RequestPoint(
+                        Point(
+                            routeItem.coordinateX,
+                            routeItem.coordinateY
+                        ),
+                        RequestPointType.WAYPOINT,
+                        null
+                    )
+                )
+                userRouteObjects.add(
+                    mapObjects.addPlacemark(
+                        Point(
+                            routeItem.coordinateX,
+                            routeItem.coordinateY
+                        ), mapPinBitmap
+                    )
+                )
+            }
+            points.add(
+                RequestPoint(
+                    Point(
+                        routeToBeDisplayed.last().coordinateX,
+                        routeToBeDisplayed.last().coordinateY
+                    ),
+                    RequestPointType.WAYPOINT,
+                    null
+                )
+            )
+            userRouteObjects.add(
+                mapObjects.addPlacemark(
+                    Point(
+                        routeToBeDisplayed.last().coordinateX,
+                        routeToBeDisplayed.last().coordinateY
+                    ), mapPinBitmap
+                )
             )
         }
 

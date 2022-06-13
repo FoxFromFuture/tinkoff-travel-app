@@ -1,4 +1,4 @@
-package com.tinkoff.travelapp
+package com.tinkoff.travelapp.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -9,9 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.tinkoff.travelapp.AuthorizationViewModel
 import com.tinkoff.travelapp.MainActivity
 import com.tinkoff.travelapp.R
+import com.tinkoff.travelapp.data.AuthorizationViewModel
 import com.tinkoff.travelapp.database.DBManager
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
