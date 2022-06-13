@@ -3,7 +3,7 @@
 
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
-    <string name="email">E-mail</string>
+    <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="sign_with_other_networks_text">or Sign in with</string>
@@ -26,6 +26,7 @@
     <!--    Main-->
     <string name="main_my_travels">My travels</string>
     <string name="main_search">Search</string>
+    <string name="main_nothing_found">Nothing found :(</string>
     <!--    Side menu-->
     <string name="main_menu_menu">Menu</string>
     <string name="main_menu_my_account">My account</string>
