@@ -21,12 +21,17 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    outputFileName = outputFileName.replace("app", "TravelApp")
+                }
+            }
         }
         cicd {
             initWith release
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    outputFileName = outputFileName.replace("cicd", "cicd-release").replace("app", "TravelApp")
+                    outputFileName = outputFileName.replace("cicd", "cicd-release")
                 }
             }
         }
