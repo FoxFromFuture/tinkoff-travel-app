@@ -37,9 +37,6 @@ class TripCardAdapter(
         val itemRemoveButton: ImageButton = itemView.findViewById(R.id.trip_card_remove)
 
         init {
-            itemImage.setOnClickListener {
-                Toast.makeText(itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
-            }
             itemTripCard.setOnClickListener {
                 val position = adapterPosition
                 val intent = Intent(itemView.context, TripDescriptionActivity::class.java)
