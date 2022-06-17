@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:background="@drawable/custom_dialog_layout"
+        android:backgroundTint="?android:colorBackground">
+
+        <TextView
+            android:id="@+id/create_travel_popup_text"
+            style="@style/TextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sfprodisplay_bold"
+            android:text="@string/main_create_travel_popup_create_new_travel"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/create_travel_popup_input_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:autofillHints="yes"
+            android:backgroundTint="@color/blue_500"
+            android:ems="15"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:hint="@string/main_create_travel_popup_name"
+            android:inputType="textShortMessage"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_text" />
+
+        <EditText
+            android:id="@+id/create_travel_popup_input_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:autofillHints="yes"
+            android:backgroundTint="@color/blue_500"
+            android:ems="15"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:hint="@string/main_create_travel_popup_budget"
+            android:inputType="numberSigned"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_input_name" />
+
+        <EditText
+            android:id="@+id/create_travel_popup_input_start_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:autofillHints="yes"
+            android:backgroundTint="@color/blue_500"
+            android:ems="15"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:hint="@string/main_create_travel_popup_start_time"
+            android:inputType="time"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/create_travel_popup_input_end_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_input_budget" />
+
+        <EditText
+            android:id="@+id/create_travel_popup_input_end_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:autofillHints="yes"
+            android:backgroundTint="@color/blue_500"
+            android:ems="15"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:hint="@string/main_create_travel_popup_end_time"
+            android:inputType="time"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/create_travel_popup_input_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_input_budget" />
+
+        <CheckBox
+            android:id="@+id/main_create_travel_popup_street_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:text="@string/main_create_travel_popup_street_button"
+            android:textAlignment="textStart"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_input_start_time" />
+
+        <CheckBox
+            android:id="@+id/main_create_travel_popup_bar_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:text="@string/main_create_travel_popup_bar_button"
+            android:textAlignment="textStart"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_create_travel_popup_street_button" />
+
+        <CheckBox
+            android:id="@+id/main_create_travel_popup_cafe_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:text="@string/main_create_travel_popup_cafe_button"
+            android:textAlignment="textStart"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/create_travel_popup_input_end_time"
+            app:layout_constraintTop_toBottomOf="@+id/create_travel_popup_input_end_time" />
+
+        <CheckBox
+            android:id="@+id/main_create_travel_popup_museum_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sfprodisplay_regular"
+            android:text="@string/main_create_travel_popup_museum_button"
+            android:textAlignment="textStart"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/main_create_travel_popup_cafe_btn"
+            app:layout_constraintTop_toBottomOf="@+id/main_create_travel_popup_cafe_btn" />
+
+        <Button
+            android:id="@+id/main_create_travel_popup_button"
+            style="@style/ButtonStyle"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/main_create_travel_popup_go"
+            android:textSize="19sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_create_travel_popup_radiogroup" />
+
+        <RadioGroup
+            android:id="@+id/main_create_travel_popup_radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:checkedButton="@id/main_create_travel_popup_short_button"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_create_travel_popup_bar_button">
+
+            <RadioButton
+                android:id="@+id/main_create_travel_popup_short_button"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprodisplay_regular"
+                android:text="@string/main_create_travel_popup_short"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/main_create_travel_popup_medium_button"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprodisplay_regular"
+                android:text="@string/main_create_travel_popup_medium"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <RadioButton
+                android:id="@+id/main_create_travel_popup_long_button"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprodisplay_regular"
+                android:text="@string/main_create_travel_popup_long"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+

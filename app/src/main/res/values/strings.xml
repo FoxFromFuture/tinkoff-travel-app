@@ -3,15 +3,19 @@
 
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
-    <string name="email">E-mail</string>
+    <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
-    <string name="sign_with_other_networks_text">or Sign in with</string>
+
+    <string name="unavailable">Service is currently unavailable. We\'re sorry!</string>
 
     <!--    SignInActivity-->
     <string name="sign_in_login">Login</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="not_registered_yet">Not registered yet?</string>
+    <string name="sign_in_forgot_password">Forgot password?</string>
+    <string name="sign_in_not_registered_yet">Not registered yet?</string>
+    <string name="sign_in_welcome_back">Welcome back!</string>
+    <string name="sign_in_invalid_email_password">Invalid email/password!</string>
+    <string name="sign_in_cant">I can\'t help you!</string>
 
     <!--    SignUpActivity-->
     <string name="sign_up_sign_up">Sign up</string>
@@ -23,11 +27,61 @@
     <!--    Main-->
     <string name="main_my_travels">My travels</string>
     <string name="main_search">Search</string>
-    <!-- Side menu-->
+    <string name="main_nothing_found">Nothing found :(</string>
+    <!--    Side menu-->
+    <string name="main_menu_menu">Menu</string>
     <string name="main_menu_my_account">My account</string>
     <string name="main_menu_settings">Settings</string>
-    <string name="main_menu_support">Support</string>
     <string name="main_menu_FAQ">FAQ</string>
-    <string name="main_menu_about_us">About us</string>
     <string name="main_menu_logout">Logout</string>
+    <!--    Trip card-->
+    <string name="trip_card_description">Description</string>
+    <string name="trip_card_placeholder">PlaceholderPlaceholderPlaceholderPlaceholderPlaceholder</string>
+    <string name="trip_card_dash">-</string>
+
+    <!--    Main, create travel popup-->
+    <string name="main_create_travel_popup_create_new_travel">Create new travel</string>
+    <string name="main_create_travel_popup_go">Go!</string>
+    <string name="main_create_travel_popup_name">Name</string>
+    <string name="main_create_travel_popup_budget">Cost</string>
+    <string name="main_create_travel_popup_start_time">Start time</string>
+    <string name="main_create_travel_popup_end_time">End time</string>
+    <string name="main_create_travel_popup_street_button">Streets</string>
+    <string name="main_create_travel_popup_bar_button">Bars</string>
+    <string name="main_create_travel_popup_cafe_button">Cafes</string>
+    <string name="main_create_travel_popup_museum_button">Museums</string>
+    <string name="main_create_travel_popup_short">Short</string>
+    <string name="main_create_travel_popup_medium">Medium</string>
+    <string name="main_create_travel_popup_long">Long</string>
+    <string name="main_create_travel_popup_travel_created">Travel created</string>
+    <string name="main_create_travel_popup_untitled">Untitled</string>
+    <string name="main_create_travel_popup_error_start_time_empty">Start time is empty</string>
+    <string name="main_create_travel_popup_error_start_time_invalid">Invalid start time</string>
+    <string name="main_create_travel_popup_error_end_time_empty">End time is empty</string>
+    <string name="main_create_travel_popup_error_end_time_invalid">Invalid end time</string>
+    <string name="main_create_travel_popup_error_period_invalid">Invalid time period</string>
+    <string name="main_create_travel_popup_error_choose_types">Choose places to visit</string>
+
+    <!--    Map-->
+    <string name="map_permission_needed">Unable to access location due to lack of permission</string>
+    <!--    Map with route-->
+    <string name="map_route_unknown_error_message">Unknown error occurred</string>
+    <string name="map_route_remote_error_message">Remote server error occurred</string>
+    <string name="map_route_network_error_message">Network error occurred</string>
+
+    <!--    Settings-->
+    <string name="settings_settings">Settings</string>
+    <!--    Theme choosing-->
+    <string name="settings_theme_choosing_name">Theme</string>
+    <string name="settings_theme_choosing_desc">Choose app theme</string>
+    <string name="settings_theme_choosing_sync">Sync with system</string>
+    <string name="settings_theme_choosing_light">Light</string>
+    <string name="settings_theme_choosing_dark">Dark</string>
+    <!--    About-->
+    <string name="settings_about_label">About</string>
+    <string name="settings_about_summary">App version and credits</string>
+    <string name="settings_about_version_text">version %1$s</string>
+    <string name="settings_about_link_text">github</string>
+    <string name="settings_about_link">http://github.com/FoxFromFuture/tinkoff-travel-app</string>
+
 </resources>

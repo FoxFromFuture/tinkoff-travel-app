@@ -14,7 +14,7 @@
         android:backgroundTint="@color/gray">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/main_top_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/main_global_button"
+                android:id="@+id/main_map_button"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="30dp"
@@ -66,21 +66,32 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/outline_public_24"
+                app:srcCompat="@drawable/baseline_map_24"
                 tools:ignore="ContentDescription" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <SearchView
-            android:id="@+id/main_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="30dp"
-            android:queryHint="@string/main_search"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_trip_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="58dp"
+            android:layout_marginBottom="58dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/main_top_constraint_layout" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_add_travel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            app:backgroundTint="@color/yellow_600"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/outline_add_24"
+            tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

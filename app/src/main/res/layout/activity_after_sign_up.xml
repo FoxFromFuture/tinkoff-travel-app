@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AfterSignUpActivity">
+    tools:context=".entry.AfterSignUpActivity">
 
     <Button
         style="@style/ButtonStyle"
@@ -22,13 +22,13 @@
 
     <TextView
         android:id="@+id/after_sign_up_welcome"
+        style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
         android:fontFamily="@font/sfprodisplay_bold"
         android:text="@string/after_sign_up_hello"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +36,7 @@
 
     <TextView
         android:id="@+id/after_sign_up_paste"
+        style="@style/TextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -43,7 +44,6 @@
         android:layout_marginEnd="40dp"
         android:text="@string/after_sign_up_paste"
         android:textAlignment="center"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/after_sign_up_welcome" />
