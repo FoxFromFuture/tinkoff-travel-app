@@ -22,7 +22,6 @@ import com.tinkoff.travelapp.database.DBManager
 import com.tinkoff.travelapp.database.model.TripDataModel
 
 class TripCardAdapter(
-    private var images: List<Int>,
 ) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
 
     var routeList: List<TripDataModel> = listOfNotNull()

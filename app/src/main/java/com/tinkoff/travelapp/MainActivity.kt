@@ -28,8 +28,6 @@ import com.tinkoff.travelapp.model.route.Route
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private var imagesList = mutableListOf<Int>()
-
     private lateinit var loginPair: String
 
     private lateinit var adapter: TripCardAdapter
@@ -49,8 +47,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         loginPair = intent.getStringExtra("loginPair").toString()
 
-        adapter =
-            TripCardAdapter(imagesList)
+        adapter = TripCardAdapter()
         tripPager = findViewById(R.id.main_trip_pager)
 
         dbManager.openDb()
