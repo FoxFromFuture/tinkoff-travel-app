@@ -11,7 +11,7 @@ on:
 jobs:
   get-apk:
     name: Get APK
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -55,6 +55,20 @@ jobs:
         path: app/build/outputs/apk/cicd/*-signed.apk
         retention-days: 1
 
+  send-apk:
+    needs: get-apk
+    name: Send Telegram Notification
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Get artifact
+      uses: actions/download-artifact@master
+      with:
+        name: app-release
+        path: app/build/outputs/apk
+
     - name: Get current time
       if: ${{ always() }}
       uses: josStorer/get-current-time@v2
@@ -76,20 +90,4 @@ jobs:
           Repository: ${{ github.repository }}
           Build was initiated by <b>${{ github.actor }}</b> with <b>${{ github.event_name }}</b>
           Build status: <b>${{ job.status }}</b>
-        document: app/build/outputs/apk/cicd/*-signed.apk
-
-    # - name: Mail Notify
-    #   if: success()
-    #   uses: dawidd6/action-send-mail@v3
-    #   with:
-    #     server_address: smtp.mail.ru
-    #     server_port: 465
-    #     username: ${{ secrets.MAIL_LOGIN }}
-    #     password: ${{ secrets.MAIL_PASSWORD }}
-    #     subject: Github Actions job result
-    #     to: eskornev@edu.hse.ru, nalisunov@edu.hse.ru
-    #     from: Luke Skywalker
-    #     secure: true
-    #     body: Build job of ${{ github.repository }} completed successfully!
-    #     ignore_cert: true
-    #     attachments: app/build/outputs/apk/release/*-signed.apk
+        document: app/build/outputs/apk/*-signed.apk
