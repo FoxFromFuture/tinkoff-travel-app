@@ -15,7 +15,6 @@ import com.tinkoff.travelapp.data.AuthorizationViewModel
 import com.tinkoff.travelapp.database.DBManager
 
 class SignInActivity : AppCompatActivity(), View.OnClickListener {
-
     private lateinit var viewModel: AuthorizationViewModel
 
     private var loginPair: String = ""

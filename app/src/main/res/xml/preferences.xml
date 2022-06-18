@@ -12,6 +12,12 @@
             android:summary="@string/settings_theme_choosing_desc"
             android:title="@string/settings_theme_choosing_name"
             app:icon="@drawable/outline_contrast_24" />
+
+        <Preference
+            android:key="settings_language_choosing"
+            android:summary="@string/settings_language_choosing_desc"
+            android:title="@string/settings_language_choosing_name"
+            app:icon="@drawable/outline_translate_24" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other">

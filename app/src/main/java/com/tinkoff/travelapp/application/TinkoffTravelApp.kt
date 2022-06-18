@@ -1,6 +1,7 @@
 package com.tinkoff.travelapp.application
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -9,6 +10,11 @@ import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.directions.DirectionsFactory
 
 class TinkoffTravelApp : Application() {
+    companion object App {
+        private lateinit var appContext: Context
+        fun getContext(): Context = this.appContext
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -31,6 +37,8 @@ class TinkoffTravelApp : Application() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
+
+        appContext = this
 
         MapKitFactory.setApiKey("7199a674-a718-43b5-9b0b-265e882bd690")
         MapKitFactory.initialize(this)

@@ -36,6 +36,14 @@
         <item name="android:tint">@color/black</item>
     </style>
 
+    <style name="ProgressStyle">
+        <item name="android:indeterminateTint">@color/black</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">#FFFFFFFF</item>
+    </style>
+
     <style name="LightTheme.TravelApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="LightTheme.TravelApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

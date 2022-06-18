@@ -34,6 +34,14 @@
         <item name="android:tint">@color/white</item>
     </style>
 
+    <style name="ProgressStyle">
+        <item name="android:indeterminateTint">@color/white</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">#FF121212</item>
+    </style>
+
     <style name="DarkTheme.TravelApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="DarkTheme.TravelApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />

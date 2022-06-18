@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.tinkoff.travelapp.BuildConfig
+import com.squareup.picasso.BuildConfig
 import com.tinkoff.travelapp.R
 
 class AboutUsActivity : AppCompatActivity(), View.OnClickListener {

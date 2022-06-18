@@ -14,7 +14,7 @@
     <string name="sign_in_forgot_password">Forgot password?</string>
     <string name="sign_in_not_registered_yet">Not registered yet?</string>
     <string name="sign_in_welcome_back">Welcome back!</string>
-    <string name="sign_in_invalid_email_password">Invalid email/password!</string>
+    <string name="sign_in_invalid_email_password">Invalid login/password!</string>
     <string name="sign_in_cant">I can\'t help you!</string>
 
     <!--    SignUpActivity-->
@@ -36,8 +36,9 @@
     <string name="main_menu_logout">Logout</string>
     <!--    Trip card-->
     <string name="trip_card_description">Description</string>
-    <string name="trip_card_placeholder">PlaceholderPlaceholderPlaceholderPlaceholderPlaceholder</string>
+    <string name="trip_card_placeholder" translatable="false">PlaceholderPlaceholderPlaceholderPlaceholderPlaceholder</string>
     <string name="trip_card_dash">-</string>
+    <string name="trip_card_deleted">Successfully removed</string>
 
     <!--    Main, create travel popup-->
     <string name="main_create_travel_popup_create_new_travel">Create new travel</string>
@@ -77,11 +78,19 @@
     <string name="settings_theme_choosing_sync">Sync with system</string>
     <string name="settings_theme_choosing_light">Light</string>
     <string name="settings_theme_choosing_dark">Dark</string>
+    <!--    Language choosing-->
+    <string name="settings_language_choosing_name">Language</string>
+    <string name="settings_language_choosing_desc">Choose app language</string>
+    <string name="settings_language_choosing_ru_RU" translatable="false">Русский</string>
+    <string name="settings_language_choosing_en_US" translatable="false">English (US)</string>
     <!--    About-->
     <string name="settings_about_label">About</string>
     <string name="settings_about_summary">App version and credits</string>
-    <string name="settings_about_version_text">version %1$s</string>
-    <string name="settings_about_link_text">github</string>
-    <string name="settings_about_link">http://github.com/FoxFromFuture/tinkoff-travel-app</string>
+    <string name="settings_about_version_text" translatable="false">version %1$s</string>
+    <string name="settings_about_link_text" translatable="false">github</string>
+    <string name="settings_about_link" translatable="false">http://github.com/FoxFromFuture/tinkoff-travel-app</string>
+
+    <!--    Hide it-->
+    <string name="hide_it_applying">Applying…</string>
 
 </resources>
