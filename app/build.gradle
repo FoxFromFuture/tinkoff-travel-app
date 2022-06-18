@@ -10,8 +10,8 @@ android {
         applicationId "com.tinkoff.travelapp"
         minSdk 23
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,6 +21,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
             android.applicationVariants.all { variant ->
                 variant.outputs.all { output ->
                     outputFileName = outputFileName.replace("app", "TravelApp")
