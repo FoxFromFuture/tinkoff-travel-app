@@ -1,10 +1,10 @@
 package com.tinkoff.travelapp.entry
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tinkoff.travelapp.R
 
@@ -26,9 +26,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 onBackPressed()
             }
             R.id.sign_up_sign_up_button -> {
-                val intent = Intent(this, AfterSignUpActivity::class.java)
-                startActivity(intent)
-                finishAffinity()
+//                val intent = Intent(this, AfterSignUpActivity::class.java)
+//                startActivity(intent)
+//                finishAffinity()
+                Toast.makeText(this, getString(R.string.unavailable), Toast.LENGTH_SHORT).show()
             }
         }
     }

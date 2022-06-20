@@ -153,12 +153,6 @@ class CreateTravelDialogFragment : DialogFragment(), View.OnClickListener {
                     }
                 }
 
-                Toast.makeText(
-                    context,
-                    getString(R.string.main_create_travel_popup_travel_created),
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 (activity as MainActivity).dialogFragmentListener(
                     valueTripName,
                     categoriesList,

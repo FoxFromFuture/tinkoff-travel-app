@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 
 class HideItFragment : Fragment() {
     private lateinit var rootView: View
@@ -25,8 +26,10 @@ class HideItFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-            }, 1500
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    ?.commit()
+            }, 500
         )
     }
 

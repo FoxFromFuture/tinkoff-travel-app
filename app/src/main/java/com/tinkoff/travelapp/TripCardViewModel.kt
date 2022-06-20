@@ -11,7 +11,11 @@ import retrofit2.Response
 class TripCardViewModel : ViewModel() {
 
     private var repository = Repository()
-    val tripDataList: MutableLiveData<Response<Route>> = MutableLiveData()
+    var tripDataList: MutableLiveData<Response<Route>> = MutableLiveData()
+
+    fun clearLiveData() {
+        tripDataList = MutableLiveData()
+    }
 
     fun getRoute(categories: List<String>, startTime: String, endTime: String, budget: Int) {
         viewModelScope.launch {

@@ -30,6 +30,7 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,12 +38,12 @@
             android:id="@+id/settings_back_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="28dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/outline_arrow_back_ios_24"
+            app:srcCompat="@drawable/ic_outline_arrow_back_ios_24"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -62,6 +63,15 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/settings_settings_fragment"
         android:name="com.tinkoff.travelapp.menu.SettingsFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_top_constraint_layout" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/settings_language_choosing_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

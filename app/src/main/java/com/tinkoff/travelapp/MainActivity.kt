@@ -22,9 +22,10 @@ import com.tinkoff.travelapp.database.model.TripDataModel
 import com.tinkoff.travelapp.entry.SignInActivity
 import com.tinkoff.travelapp.map.NoRouteMapActivity
 import com.tinkoff.travelapp.menu.FAQActivity
-import com.tinkoff.travelapp.menu.MyAccountActivity
 import com.tinkoff.travelapp.menu.SettingsActivity
 import com.tinkoff.travelapp.model.route.Route
+import com.tinkoff.travelapp.model.route.RouteItem
+import kotlin.math.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -53,19 +54,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         dbManager.openDb()
         getDbData()
         viewModel = ViewModelProvider(this)[TripCardViewModel::class.java]
+        viewModel.clearLiveData()
 
         viewModel.tripDataList.observe(this) { list ->
             if (list.isSuccessful) {
                 Log.d("Main", list.body().toString())
                 tripPager.adapter = adapter
                 list.body()?.let {
+                    if (it.isEmpty()) {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.main_create_travel_popup_error_cant_create),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@observe
+                    }
                     dbManager.writeTripDbData(
                         tripNameBuffer,
                         tripDateBuffer,
-                        compressRouteToDuration(it, tripDurationBuffer),
+                        compressAndSortNewRoute(it, tripDurationBuffer),
                         loginPair
                     )
                     addToTripList(dbManager.readTripDbData(dbManager.getUserIdByLoginPair(loginPair)))
+                    Toast.makeText(
+                        this,
+                        getString(R.string.main_create_travel_popup_travel_created),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
                 Toast.makeText(this, list.code(), Toast.LENGTH_SHORT).show()
@@ -79,10 +94,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         toggle.syncState()
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.main_menu_my_account_button -> {
-                    val intent = Intent(this, MyAccountActivity::class.java)
-                    startActivity(intent)
-                }
                 R.id.main_menu_settings_button -> {
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
@@ -111,6 +122,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun getDbData() {
+        tripList.clear()
         tripList = dbManager.readTripDbData(dbManager.getUserIdByLoginPair(loginPair))
         adapter.setListOfRoutes(tripList)
         tripPager.adapter = adapter
@@ -173,7 +185,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.getRoute(tripCategories, tripStartTime, tripEndTime, tripCost)
     }
 
-    private fun compressRouteToDuration(route: Route, routeDuration: TripDurations): Route {
+    private fun compressAndSortNewRoute(route: Route, routeDuration: TripDurations): Route {
         val newRoute = Route()
         val random = Random(System.currentTimeMillis())
 
@@ -214,6 +226,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
+        val firstPoint = newRoute.first()
+        newRoute.sortWith(object : Comparator<RouteItem> {
+            override fun compare(left: RouteItem?, right: RouteItem?): Int {
+                return if (left != null && right != null) {
+                    val distanceOne = distance(firstPoint, left)
+                    val distanceTwo = distance(firstPoint, right)
+
+                    (distanceOne - distanceTwo).toInt()
+                } else {
+                    -1
+                }
+            }
+
+            fun distance(from: RouteItem, to: RouteItem): Double {
+                val constEarthRadius = 6378137
+                val deltaLat = from.coordinateX - to.coordinateX
+                val deltaLon = from.coordinateY - to.coordinateY
+                val angle = 2 * asin(
+                    sqrt(
+                        sin(deltaLat / 2).pow(2.0)
+                                + cos(from.coordinateX) * cos(to.coordinateX) * sin(
+                            deltaLon / 2
+                        ).pow(2.0)
+                    )
+                )
+                return constEarthRadius * angle
+            }
+        })
 
         return newRoute
     }

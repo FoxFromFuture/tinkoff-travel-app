@@ -5,19 +5,13 @@
     <PreferenceCategory android:title="General settings">
 
         <com.tinkoff.travelapp.menu.CustomListPreference
-            android:defaultValue="0"
+            android:defaultValue="SYNC"
             android:entries="@array/settings_theme_choosing_labels"
             android:entryValues="@array/settings_theme_choosing_values"
             android:key="settings_theme_choosing"
             android:summary="@string/settings_theme_choosing_desc"
             android:title="@string/settings_theme_choosing_name"
-            app:icon="@drawable/outline_contrast_24" />
-
-        <Preference
-            android:key="settings_language_choosing"
-            android:summary="@string/settings_language_choosing_desc"
-            android:title="@string/settings_language_choosing_name"
-            app:icon="@drawable/outline_translate_24" />
+            app:icon="@drawable/ic_outline_contrast_24" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Other">
@@ -26,6 +20,6 @@
             android:key="settings_about"
             android:summary="@string/settings_about_summary"
             android:title="@string/settings_about_label"
-            app:icon="@drawable/outline_info_24" />
+            app:icon="@drawable/ic_outline_info_24" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -10,8 +10,8 @@ android {
         applicationId "com.tinkoff.travelapp"
         minSdk 23
         targetSdk 32
-        versionCode 3
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.debug
@@ -55,6 +55,11 @@ android {
             enable gradle.startParameter.taskNames.any { it.toLowerCase().contains("cicd") }
             reset()
             include "x86", "x86_64", "armeabi-v7a", "arm64-v8a"
+        }
+    }
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
         }
     }
 }

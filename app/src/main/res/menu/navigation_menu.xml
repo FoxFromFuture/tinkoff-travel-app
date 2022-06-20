@@ -3,18 +3,13 @@
     <item android:title="@string/main_menu_menu">
         <menu>
             <item
-                android:id="@+id/main_menu_my_account_button"
-                android:icon="@drawable/outline_account_circle_24"
-                android:title="@string/main_menu_my_account" />
-
-            <item
                 android:id="@+id/main_menu_settings_button"
-                android:icon="@drawable/outline_settings_24"
+                android:icon="@drawable/ic_outline_settings_24"
                 android:title="@string/main_menu_settings" />
 
             <item
                 android:id="@+id/main_menu_faq_button"
-                android:icon="@drawable/outline_help_outline_24"
+                android:icon="@drawable/ic_outline_help_outline_24"
                 android:title="@string/main_menu_FAQ" />
         </menu>
     </item>

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.tinkoff.travelapp.HideItFragment
 import com.tinkoff.travelapp.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -19,17 +18,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             buttonAbout.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val intent = Intent(activity, AboutUsActivity::class.java)
                 startActivity(intent)
-                true
-            }
-        }
-
-        val buttonLanguage = findPreference<Preference>("settings_language_choosing")
-        if (buttonLanguage != null) {
-            buttonLanguage.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.settings_activity, HideItFragment(), HideItFragment.TAG)
-                    ?.addToBackStack(null)
-                    ?.commit()
                 true
             }
         }
