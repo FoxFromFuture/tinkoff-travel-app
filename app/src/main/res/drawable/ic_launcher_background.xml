@@ -7,17 +7,13 @@
         android:scaleX="0.2109375"
         android:scaleY="0.2109375">
         <path
-            android:pathData="M0.5,0.5h512v512h-512z"
+            android:pathData="M0,0h512v512h-512z"
             android:fillColor="#FFFFFF" />
         <path
-            android:pathData="M359,0.5l-358.5,448.5l0,-448.5z"
-            android:strokeWidth="2"
-            android:fillColor="#FFFF66"
-            android:strokeColor="#000000" />
+            android:pathData="M-88.2,482.4l621.2,-513.8l-14.1,145.7l-319.3,403.1l-294.6,30z"
+            android:fillColor="#FFFF66" />
         <path
-            android:pathData="M512.5,91l-1.1,421.5l-444.4,0z"
-            android:strokeWidth="2"
-            android:fillColor="#FFFF66"
-            android:strokeColor="#000000" />
+            android:pathData="M-8.3,389.1l377.6,-449.4l-380.7,-2.6z"
+            android:fillColor="#FFFF66" />
     </group>
 </vector>

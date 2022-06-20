@@ -117,6 +117,18 @@ class NoRouteMapActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
+        val buttonZoomIn = findViewById<ImageButton>(R.id.map_zoom_in_button)
+        buttonZoomIn.setOnClickListener(this)
+
+        val buttonZoomOut = findViewById<ImageButton>(R.id.map_zoom_out_button)
+        buttonZoomOut.setOnClickListener(this)
+
+        val buttonMyLocation = findViewById<ImageButton>(R.id.map_my_location_button)
+        buttonMyLocation.setOnClickListener(this)
+
+        val buttonBack = findViewById<ImageButton>(R.id.map_back_button)
+        buttonBack.setOnClickListener(this)
+
         activeUserLocationBitmap =
             ImageProvider.fromBitmap(getBitmapFromDrawable(R.drawable.map_user_location_active))
         activePassiveUserLocationBitmap =
@@ -164,8 +176,6 @@ class NoRouteMapActivity : AppCompatActivity(), View.OnClickListener {
                 isCameraFollowing
             ) {
                 isCameraFollowing = false
-                val buttonMyLocation =
-                    findViewById<ImageButton>(R.id.map_my_location_button)
                 buttonMyLocation.setColorFilter(
                     ContextCompat.getColor(
                         this,
@@ -176,18 +186,6 @@ class NoRouteMapActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         mapView.map.addCameraListener(userLocationCameraListener)
-
-        val buttonZoomIn = findViewById<ImageButton>(R.id.map_zoom_in_button)
-        buttonZoomIn.setOnClickListener(this)
-
-        val buttonZoomOut = findViewById<ImageButton>(R.id.map_zoom_out_button)
-        buttonZoomOut.setOnClickListener(this)
-
-        val buttonMyLocation = findViewById<ImageButton>(R.id.map_my_location_button)
-        buttonMyLocation.setOnClickListener(this)
-
-        val buttonBack = findViewById<ImageButton>(R.id.map_back_button)
-        buttonBack.setOnClickListener(this)
 
         buttonMyLocation.performClick()
     }

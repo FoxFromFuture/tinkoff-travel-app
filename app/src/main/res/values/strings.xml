@@ -9,12 +9,14 @@
 
     <string name="unavailable">Service is currently unavailable. We\'re sorry!</string>
 
+    <string name="placeholder" translatable="false">PlaceholderPlaceholderPlaceholderPlaceholderPlaceholder</string>
+
     <!--    SignInActivity-->
     <string name="sign_in_login">Login</string>
     <string name="sign_in_forgot_password">Forgot password?</string>
     <string name="sign_in_not_registered_yet">Not registered yet?</string>
     <string name="sign_in_welcome_back">Welcome back!</string>
-    <string name="sign_in_invalid_email_password">Invalid email/password!</string>
+    <string name="sign_in_invalid_email_password">Invalid login/password!</string>
     <string name="sign_in_cant">I can\'t help you!</string>
 
     <!--    SignUpActivity-->
@@ -36,8 +38,8 @@
     <string name="main_menu_logout">Logout</string>
     <!--    Trip card-->
     <string name="trip_card_description">Description</string>
-    <string name="trip_card_placeholder">PlaceholderPlaceholderPlaceholderPlaceholderPlaceholder</string>
     <string name="trip_card_dash">-</string>
+    <string name="trip_card_deleted">Successfully removed</string>
 
     <!--    Main, create travel popup-->
     <string name="main_create_travel_popup_create_new_travel">Create new travel</string>
@@ -61,6 +63,7 @@
     <string name="main_create_travel_popup_error_end_time_invalid">Invalid end time</string>
     <string name="main_create_travel_popup_error_period_invalid">Invalid time period</string>
     <string name="main_create_travel_popup_error_choose_types">Choose places to visit</string>
+    <string name="main_create_travel_popup_error_cant_create">Can\'t find anything :(</string>
 
     <!--    Map-->
     <string name="map_permission_needed">Unable to access location due to lack of permission</string>
@@ -68,6 +71,10 @@
     <string name="map_route_unknown_error_message">Unknown error occurred</string>
     <string name="map_route_remote_error_message">Remote server error occurred</string>
     <string name="map_route_network_error_message">Network error occurred</string>
+    <string name="map_place_card_name">Name</string>
+    <string name="map_place_card_address">Address</string>
+    <string name="map_place_card_working_hours">Working hours</string>
+    <string name="map_place_card_round_the_clock">Round the clock</string>
 
     <!--    Settings-->
     <string name="settings_settings">Settings</string>
@@ -77,11 +84,29 @@
     <string name="settings_theme_choosing_sync">Sync with system</string>
     <string name="settings_theme_choosing_light">Light</string>
     <string name="settings_theme_choosing_dark">Dark</string>
+    <!--    Language choosing-->
+    <string name="settings_language_choosing_name">Language</string>
+    <string name="settings_language_choosing_desc">Choose app language</string>
+    <string name="settings_language_choosing_ru_RU" translatable="false">Русский</string>
+    <string name="settings_language_choosing_en_US" translatable="false">English (United States)</string>
+    <string name="settings_language_choosing_en_UK" translatable="false">English (United Kingdom)</string>
     <!--    About-->
     <string name="settings_about_label">About</string>
     <string name="settings_about_summary">App version and credits</string>
-    <string name="settings_about_version_text">version %1$s</string>
-    <string name="settings_about_link_text">github</string>
-    <string name="settings_about_link">http://github.com/FoxFromFuture/tinkoff-travel-app</string>
+    <string name="settings_about_version_text" translatable="false">version %1$s</string>
+    <string name="settings_about_link_text" translatable="false">github</string>
+    <string name="settings_about_link" translatable="false">http://github.com/FoxFromFuture/tinkoff-travel-app</string>
 
+    <!--    Hide it-->
+    <string name="hide_it_applying">Applying…</string>
+
+    <!--    FAQ-->
+    <string name="faq_1">What kind of app is this?</string>
+    <string name="faq_1_ans">This app can allow you to create a random route through various interesting places in your city.</string>
+    <string name="faq_2">How do I create a route?</string>
+    <string name="faq_2_ans">To create a route, go to the main screen, then click on the button in the lower right corner, enter the necessary data and click on the create button. After that, you will have your new journey.</string>
+    <string name="faq_3">How can I see the route on the map?</string>
+    <string name="faq_3_ans">To open the map, click on the card of the created trip and click on the map icon in the upper right corner. In addition, you can go to the map from the main screen, for easy interaction with an empty map.</string>
+    <string name="faq_4">Where can I see the project source code?</string>
+    <string name="faq_4_ans">There is an About tab in the settings. There you can find the version and link to the project\'s GitHub</string>
 </resources>

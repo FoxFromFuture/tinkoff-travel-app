@@ -6,21 +6,25 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.ColorFilter
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.model.route.Route
+import com.tinkoff.travelapp.model.route.RouteItem
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.RequestPoint
@@ -63,6 +67,8 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
 
     private var userRoutePolylines = mutableListOf<PolylineMapObject>()
     private var userRouteObjects = mutableListOf<PlacemarkMapObject>()
+
+    private lateinit var userMapObjectListener: MapObjectTapListener
 
     private lateinit var activeUserLocationBitmap: ImageProvider
     private lateinit var activePassiveUserLocationBitmap: ImageProvider
@@ -135,6 +141,18 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
             }
         }
 
+        val buttonZoomIn = findViewById<ImageButton>(R.id.map_zoom_in_button)
+        buttonZoomIn.setOnClickListener(this)
+
+        val buttonZoomOut = findViewById<ImageButton>(R.id.map_zoom_out_button)
+        buttonZoomOut.setOnClickListener(this)
+
+        val buttonMyLocation = findViewById<ImageButton>(R.id.map_my_location_button)
+        buttonMyLocation.setOnClickListener(this)
+
+        val buttonBack = findViewById<ImageButton>(R.id.map_back_button)
+        buttonBack.setOnClickListener(this)
+
         activeUserLocationBitmap =
             ImageProvider.fromBitmap(getBitmapFromDrawable(R.drawable.map_user_location_active))
         activePassiveUserLocationBitmap =
@@ -190,8 +208,6 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                 cameraUpdateReason == CameraUpdateReason.GESTURES
             ) {
                 isCameraFollowing = false
-                val buttonMyLocation =
-                    findViewById<ImageButton>(R.id.map_my_location_button)
                 buttonMyLocation.setColorFilter(
                     ContextCompat.getColor(
                         this,
@@ -203,25 +219,43 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
         }
         mapView.map.addCameraListener(userLocationCameraListener)
 
+        userMapObjectListener = MapObjectTapListener { mapObject, _ ->
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
+            val realRoute: RouteItem = mapObject.userData as RouteItem
+
+            val name = view.findViewById<TextView>(R.id.map_place_card_place_name_text)
+            val address = view.findViewById<TextView>(R.id.map_place_card_address_text)
+            val workingHoursLabel = view.findViewById<TextView>(R.id.map_place_card_work_hours)
+            val workingHours = view.findViewById<TextView>(R.id.map_place_card_work_hours_text)
+
+            if (realRoute.type == "STREET") {
+                name.text = realRoute.name
+                address.text = realRoute.description
+                workingHoursLabel.visibility = View.GONE
+                workingHours.visibility = View.GONE
+            } else {
+                name.text = realRoute.name
+                address.text = realRoute.description
+                if (realRoute.openTime == "00:00" && realRoute.closeTime == "23:59") {
+                    workingHours.text = getString(R.string.map_place_card_round_the_clock)
+                } else {
+                    workingHours.text = "${realRoute.openTime} - ${realRoute.closeTime}"
+                }
+            }
+
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.setContentView(view)
+            dialog.show()
+            true
+        }
+
         routeToBeDisplayed =
             Gson().fromJson(intent.getStringExtra("itemRealRoute"), Route::class.java)
         drivingRouter = DirectionsFactory.getInstance().createDrivingRouter()
         mapObjects = mapView.map.mapObjects.addCollection()
 
-        val buttonZoomIn = findViewById<ImageButton>(R.id.map_zoom_in_button)
-        buttonZoomIn.setOnClickListener(this)
-
-        val buttonZoomOut = findViewById<ImageButton>(R.id.map_zoom_out_button)
-        buttonZoomOut.setOnClickListener(this)
-
-        val buttonMyLocation = findViewById<ImageButton>(R.id.map_my_location_button)
-        buttonMyLocation.setOnClickListener(this)
-
-        val buttonBack = findViewById<ImageButton>(R.id.map_back_button)
-        buttonBack.setOnClickListener(this)
-
         buttonMyLocation.performClick()
-//        submitRouteRequest()
     }
 
     override fun onClick(view: View?) {
@@ -388,14 +422,6 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                 moveCameraToPosition(
                     Point(location.latitude, location.longitude), constZoomCloseUp
                 )
-                userRouteObjects.add(
-                    mapObjects.addPlacemark(
-                        Point(
-                            location.latitude,
-                            location.longitude
-                        ), mapPinBitmap
-                    )
-                )
                 routeToBeDisplayed.dropLast(1).forEach { routeItem ->
                     points.add(
                         RequestPoint(
@@ -415,6 +441,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                             ), mapPinBitmap
                         )
                     )
+                    userRouteObjects.last().userData = routeItem
                 }
                 points.add(
                     RequestPoint(
@@ -434,6 +461,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                         ), mapPinBitmap
                     )
                 )
+                userRouteObjects.last().userData = routeToBeDisplayed.last()
             }
         } else if (isRouteShowingWithUser == false) {
             points.add(
@@ -460,6 +488,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     ), mapPinBitmap
                 )
             )
+            userRouteObjects.last().userData = routeToBeDisplayed.first()
             routeToBeDisplayed.drop(1).dropLast(1).forEach { routeItem ->
                 points.add(
                     RequestPoint(
@@ -479,6 +508,7 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                         ), mapPinBitmap
                     )
                 )
+                userRouteObjects.last().userData = routeItem
             }
             points.add(
                 RequestPoint(
@@ -498,6 +528,11 @@ class RouteMapActivity : AppCompatActivity(), View.OnClickListener,
                     ), mapPinBitmap
                 )
             )
+            userRouteObjects.last().userData = routeToBeDisplayed.last()
+        }
+
+        userRouteObjects.forEach {
+            it.addTapListener(userMapObjectListener)
         }
 
         drivingSession = drivingRouter.requestRoutes(points, drivingOptions, vehicleOptions, this)

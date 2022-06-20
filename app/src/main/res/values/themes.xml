@@ -11,8 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="LightTheme.TravelApp.NoActionBar">
@@ -34,6 +34,18 @@
 
     <style name="IconStyle">
         <item name="android:tint">@color/black</item>
+    </style>
+
+    <style name="ProgressStyle">
+        <item name="android:indeterminateTint">@color/black</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/custom_bottom_sheet_dialog</item>
     </style>
 
     <style name="LightTheme.TravelApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

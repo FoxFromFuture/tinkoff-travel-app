@@ -18,16 +18,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.tinkoff.travelapp.R
 import com.tinkoff.travelapp.TripDescriptionActivity
+import com.tinkoff.travelapp.application.TinkoffTravelApp
 import com.tinkoff.travelapp.database.DBManager
 import com.tinkoff.travelapp.database.model.TripDataModel
 
-class TripCardAdapter(
-) : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
-
+class TripCardAdapter : RecyclerView.Adapter<TripCardAdapter.TripCardViewHolder>() {
     var routeList: List<TripDataModel> = listOfNotNull()
 
-    inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    inner class TripCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val itemTripCard: CardView = itemView.findViewById(R.id.trip_card_cardView)
         val itemImage: ImageView = itemView.findViewById(R.id.trip_card_image)
         val itemTitle: TextView = itemView.findViewById(R.id.trip_card_title)
@@ -36,48 +35,58 @@ class TripCardAdapter(
         val itemRemoveButton: ImageButton = itemView.findViewById(R.id.trip_card_remove)
 
         init {
-            itemTripCard.setOnClickListener {
-                val position = adapterPosition
-                val intent = Intent(itemView.context, TripDescriptionActivity::class.java)
+            itemTripCard.setOnClickListener(this)
+            itemRemoveButton.setOnClickListener(this)
+        }
 
-                val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
-                    itemView.context as Activity?,
-                    Pair(itemImage, "trip_card_transition")
-                )
+        override fun onClick(view: View?) {
+            when (view?.id) {
+                R.id.trip_card_cardView -> {
+                    val position = adapterPosition
+                    val intent = Intent(itemView.context, TripDescriptionActivity::class.java)
 
-                val tempKeyPointsString: String =
-                    routeList[position].route[0].name + " - " + routeList[position].route.elementAt(
-                        routeList[position].route.lastIndex
-                    ).name
+                    val options: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(
+                        itemView.context as Activity?,
+                        Pair(itemImage, "trip_card_transition")
+                    )
 
-                var tempDescription = "Places:" + "\n"
-                var placesCount = 1
-                for (item in routeList[position].route) {
-                    tempDescription += "${placesCount}. ${item.name} \n"
-                    placesCount++
+                    val tempKeyPointsString: String =
+                        routeList[position].route[0].name + " - " + routeList[position].route.elementAt(
+                            routeList[position].route.lastIndex
+                        ).name
+
+                    var tempDescription = ""
+                    var placesCount = 1
+                    for (item in routeList[position].route) {
+                        tempDescription += "•   ${item.name}\n"
+                        ++placesCount
+                    }
+
+                    val currentRoute = routeList[position].route
+
+                    intent.putExtra("itemImage", R.drawable.base_trip_card_image)
+                    intent.putExtra("itemTitle", routeList[position].title)
+                    intent.putExtra("itemDate", routeList[position].date)
+                    intent.putExtra("itemKeyPoints", tempKeyPointsString)
+                    intent.putExtra("itemTripDescription", tempDescription)
+                    intent.putExtra("itemRealRoute", Gson().toJson(currentRoute))
+
+                    startActivity(itemView.context, intent, options.toBundle())
                 }
-
-                val currentRoute = routeList[position].route
-
-                intent.putExtra("itemImage", R.drawable.base_trip_card_image)
-                intent.putExtra("itemTitle", routeList[position].title)
-                intent.putExtra("itemDate", routeList[position].date)
-                intent.putExtra("itemKeyPoints", tempKeyPointsString)
-                intent.putExtra("itemTripDescription", tempDescription)
-                intent.putExtra("itemRealRoute", Gson().toJson(currentRoute))
-
-                startActivity(itemView.context, intent, options.toBundle())
-            }
-            itemRemoveButton.setOnClickListener {
-                val dbManager = DBManager(itemRemoveButton.context)
-                val position = adapterPosition
-                dbManager.openDb()
-                dbManager.removeTripFromDb(routeList[position].userId, routeList[position].id)
-                setListOfRoutes(dbManager.readTripDbData(routeList[position].userId))
-                Toast.makeText(itemRemoveButton.context, "Successfully removed", Toast.LENGTH_SHORT)
-                    .show()
-                notifyDataSetChanged()
-                dbManager.closeDb()
+                R.id.trip_card_remove -> {
+                    val dbManager = DBManager(itemRemoveButton.context)
+                    val position = adapterPosition
+                    dbManager.openDb()
+                    dbManager.removeTripFromDb(routeList[position].userId, routeList[position].id)
+                    setListOfRoutes(dbManager.readTripDbData(routeList[position].userId))
+                    Toast.makeText(
+                        itemRemoveButton.context,
+                        TinkoffTravelApp.getContext().getString(R.string.trip_card_deleted),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    notifyDataSetChanged()
+                    dbManager.closeDb()
+                }
             }
         }
     }
